@@ -1,5 +1,5 @@
 <?php
 
-Route::apiResource('/notebooks', 'NotebooksController');
-Route::apiResource('/tags', 'TagsController');
-Route::apiResource('/notebooks/{notebook_id}/tags', 'NotebookTagsController');
+Route::apiResource('notebooks', 'NotebooksController');
+Route::apiResource('tags', 'TagsController');
+Route::apiResource('notebooks.tags', 'NotebookTagsController');
