@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
-    public function notebooks()
+    public function pages()
     {
-        return $this->hasMany(Notebook::class);
+        return $this->hasMany(Page::class);
     }
 }
