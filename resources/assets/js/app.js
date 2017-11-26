@@ -14,7 +14,10 @@ window.Vue = require('vue');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+import LayoutHeader from './components/LayoutHeader';
+import LayoutDrawer from './components/LayoutDrawer';
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    components: { LayoutHeader, LayoutDrawer },
 });
