@@ -15,9 +15,14 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 import LayoutHeader from './components/LayoutHeader';
-import LayoutDrawer from './components/LayoutDrawer';
 
 const app = new Vue({
     el: '#app',
-    components: { LayoutHeader, LayoutDrawer },
+    components: { LayoutHeader },
+
+    methods: {
+        tagNewPage() {
+            alert('Processing a new page!');
+        }
+    },
 });
