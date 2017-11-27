@@ -5,6 +5,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Tag::class, function (Faker $faker) {
     return [
-        'tag' => $faker->words(2),
+        'tag' => $faker->word,
     ];
 });
