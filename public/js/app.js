@@ -1615,6 +1615,35 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\"]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0&bustCache!./resources/assets/js/components/Tags.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            tags: []
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        axios.get('/tags').then(function (response) {
+            return _this.tags = response.data;
+        });
+    }
+});
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-50c5508e\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0&bustCache!./resources/assets/js/components/LayoutHeader.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2366,20 +2395,14 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0, false, false)
+  return _c(
+    "ul",
+    _vm._l(_vm.tags, function(tag) {
+      return _c("li", [_vm._v(_vm._s(tag))])
+    })
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", [
-      _c("li", [_vm._v("Some tag")]),
-      _vm._v(" "),
-      _c("li", [_vm._v("Another tag")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -16051,16 +16074,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 // Configure axios
-window.axios = __WEBPACK_IMPORTED_MODULE_1_axios___default.a;
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-// Use CSRF tokens
-var token = document.head.querySelector('meta[name="csrf-token"]');
-if (token) {
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-} else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
-}
+__WEBPACK_IMPORTED_MODULE_1_axios___default.a.defaults.baseURL = 'http://librorum.lcl/api/';
+__WEBPACK_IMPORTED_MODULE_1_axios___default.a.defaults.headers.common['Content-Type'] = 'application/json';
+__WEBPACK_IMPORTED_MODULE_1_axios___default.a.defaults.headers.common['Accept'] = 'application/json';
+window.axios = __WEBPACK_IMPORTED_MODULE_1_axios___default.a; // Use axios as a global
 
 // Create Vue application
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
@@ -16141,7 +16158,7 @@ module.exports = Component.exports
 var disposed = false
 var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\"]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0&bustCache!./resources/assets/js/components/Tags.vue")
 /* template */
 var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-8609bf60\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0&bustCache!./resources/assets/js/components/Tags.vue")
 /* template functional */
@@ -16201,7 +16218,6 @@ module.exports = Component.exports
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
-    mode: 'history',
     routes: [{ path: '/tags', component: __WEBPACK_IMPORTED_MODULE_2__components_Tags___default.a }]
 }));
 

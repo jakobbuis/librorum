@@ -6,7 +6,6 @@ import Tags from './components/Tags';
 Vue.use(VueRouter);
 
 export default new VueRouter({
-    mode: 'history',
     routes: [
         { path: '/tags', component: Tags },
     ],
