@@ -1,16 +1,14 @@
 <template>
     <ul class="mdl-list">
-        <li class="mdl-list__item" v-for="tag in tags">
-            <span class="mdl-list__item-primary-content">
-                {{ tag }}
-            </span>
-            <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">expand_more</i></a>
-        </li>
+       <tag v-for="tag in tags" key="tag" :tag="tag"></tag>
     </ul>
 </template>
 
 <script>
+import Tag from './Tag';
+
 export default {
+    components: { Tag },
     data() {
         return {
             tags: [],
