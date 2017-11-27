@@ -1629,9 +1629,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['tag']
+    props: ['tag'],
+    data: function data() {
+        return {
+            expanded: false
+        };
+    },
+
+    computed: {
+        expansionIcon: function expansionIcon() {
+            return this.expanded ? 'expand_less' : 'expand_more';
+        }
+    }
 });
 
 /***/ }),
@@ -2448,26 +2461,37 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("li", { staticClass: "mdl-list__item" }, [
-    _c("span", { staticClass: "mdl-list__item-primary-content" }, [
-      _vm._v("\n        " + _vm._s(_vm.tag) + "\n    ")
-    ]),
-    _vm._v(" "),
-    _vm._m(0, false, false)
-  ])
+  return _c(
+    "li",
+    {
+      staticClass: "mdl-list__item",
+      on: {
+        click: function($event) {
+          _vm.expanded = !_vm.expanded
+        }
+      }
+    },
+    [
+      _c("span", { staticClass: "mdl-list__item-primary-content" }, [
+        _vm._v("\n        " + _vm._s(_vm.tag) + "\n    ")
+      ]),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "mdl-list__item-secondary-action",
+          attrs: { href: "#" }
+        },
+        [
+          _c("i", { staticClass: "material-icons" }, [
+            _vm._v(_vm._s(_vm.expansionIcon))
+          ])
+        ]
+      )
+    ]
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      { staticClass: "mdl-list__item-secondary-action", attrs: { href: "#" } },
-      [_c("i", { staticClass: "material-icons" }, [_vm._v("expand_more")])]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
