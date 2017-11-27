@@ -1626,6 +1626,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -2397,12 +2402,30 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "ul",
+    { staticClass: "mdl-list" },
     _vm._l(_vm.tags, function(tag) {
-      return _c("li", [_vm._v(_vm._s(tag))])
+      return _c("li", { staticClass: "mdl-list__item" }, [
+        _c("span", { staticClass: "mdl-list__item-primary-content" }, [
+          _vm._v("\n            " + _vm._s(tag) + "\n        ")
+        ]),
+        _vm._v(" "),
+        _vm._m(0, true, false)
+      ])
     })
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "mdl-list__item-secondary-action", attrs: { href: "#" } },
+      [_c("i", { staticClass: "material-icons" }, [_vm._v("expand_more")])]
+    )
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

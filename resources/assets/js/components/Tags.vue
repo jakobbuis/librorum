@@ -1,6 +1,11 @@
 <template>
-    <ul>
-        <li v-for="tag in tags">{{ tag }}</li>
+    <ul class="mdl-list">
+        <li class="mdl-list__item" v-for="tag in tags">
+            <span class="mdl-list__item-primary-content">
+                {{ tag }}
+            </span>
+            <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">expand_more</i></a>
+        </li>
     </ul>
 </template>
 
