@@ -1,7 +1,7 @@
 <template>
-    <ul class="mdl-list">
-       <tag v-for="tag in tags" key="tag" :tag="tag"></tag>
-    </ul>
+    <div>
+        <tag v-for="tag in tags" key="tag" :tag="tag"></tag>
+    </div>
 </template>
 
 <script>
@@ -22,8 +22,7 @@ export default {
 </script>
 
 <style scoped>
-ul {
-    margin-top: 0;
-    padding-top: 0;
+div {
+    background-color: #fafafa;
 }
 </style>

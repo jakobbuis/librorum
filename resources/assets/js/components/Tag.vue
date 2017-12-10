@@ -1,32 +1,71 @@
 <template>
-    <li class="mdl-list__item" @click="expanded = !expanded">
-        <span class="mdl-list__item-primary-content">
-            {{ tag }}
-        </span>
-        <a class="mdl-list__item-secondary-action" href="#">
-            <i class="material-icons">{{ expansionIcon }}</i>
-        </a>
-    </li>
+    <div class="demo-card-event mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title mdl-card--expand">
+            <h4>{{ tag }}</h4>
+        </div>
+
+        <div class="mdl-card__supporting-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Mauris sagittis pellentesque lacus eleifend lacinia...
+        </div>
+
+        <div class="mdl-card__actions mdl-card--border">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                All pages
+            </a>
+            <div class="mdl-layout-spacer"></div>
+            <i class="material-icons">library_add</i>
+        </div>
+
+        <div class="mdl-card__menu">
+            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                <i class="material-icons">star_border</i>
+            </button>
+        </div>
+    </div>
 </template>
 
 <script>
+import PageList from './PageList';
+
 export default {
     props: ['tag'],
+    components: { PageList },
     data() {
         return {
             expanded: false,
         };
     },
     computed: {
-        expansionIcon() {
-            return this.expanded ? 'expand_less' : 'expand_more';
-        },
+
     },
 };
 </script>
 
-<style scoped>
-li {
-    border-bottom: 1px solid #ccc;
+<style lang="scss" scoped>
+.mdl-card {
+    margin: 1em;
+
+    h4, .mdl-card__title {
+        margin-bottom: 0;
+    }
+
+    & > .mdl-card__title {
+        align-items: flex-start;
+    }
+
+    & > .mdl-card__title > h4 {
+        margin-top: 0;
+    }
+
+    & > .mdl-card__actions {
+        display: flex;
+        box-sizing:border-box;
+        align-items: center;
+    }
+
+    & > .mdl-card__actions > .material-icons {
+        padding-right: 10px;
+    }
 }
 </style>
