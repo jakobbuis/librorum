@@ -24,3 +24,9 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+li {
+    border-bottom: 1px solid #ccc;
+}
+</style>

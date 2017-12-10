@@ -20,3 +20,10 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+ul {
+    margin-top: 0;
+    padding-top: 0;
+}
+</style>
