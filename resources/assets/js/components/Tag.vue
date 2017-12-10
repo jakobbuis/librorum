@@ -1,12 +1,13 @@
 <template>
     <div class="demo-card-event mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title mdl-card--expand">
-            <h4>{{ tag }}</h4>
+            <h4>{{ tag.tag }}</h4>
         </div>
 
         <div class="mdl-card__supporting-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Mauris sagittis pellentesque lacus eleifend lacinia...
+            <span class="mdl-chip" v-for="page in tag.pages">
+                <span class="mdl-chip__text">{{ page }}</span>
+            </span>
         </div>
 
         <div class="mdl-card__actions mdl-card--border">

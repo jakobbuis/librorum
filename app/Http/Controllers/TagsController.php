@@ -14,7 +14,8 @@ class TagsController extends Controller
      */
     public function index()
     {
-        return Tag::all()->pluck('tag');
+        $tags = Tag::with('pages')->get();
+        return \App\Http\Resources\Tag::collection($tags);
     }
 
     /**

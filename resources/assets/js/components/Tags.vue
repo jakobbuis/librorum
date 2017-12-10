@@ -16,7 +16,7 @@ export default {
     },
 
     created() {
-        axios.get('/tags').then(response => this.tags = response.data);
+        axios.get('/tags').then(response => this.tags = response.data.data);
     }
 };
 </script>

@@ -9,6 +9,6 @@ class Tag extends Model
 {
     public function pages()
     {
-        return $this->hasMany(Page::class);
+        return $this->belongsToMany(Page::class);
     }
 }
