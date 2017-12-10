@@ -1700,7 +1700,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    computed: {}
+    methods: {
+        openTag: function openTag() {
+            this.$router.push({ name: 'tag', params: { tag: this.tag } });
+        }
+    }
 });
 
 /***/ }),
@@ -2639,32 +2643,27 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm._m(0, false, false),
+      _c("div", { staticClass: "mdl-card__actions mdl-card--border" }, [
+        _c(
+          "a",
+          {
+            staticClass:
+              "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect",
+            on: { click: _vm.openTag }
+          },
+          [_vm._v("\n            All pages\n        ")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "mdl-layout-spacer" }),
+        _vm._v(" "),
+        _c("i", { staticClass: "material-icons" }, [_vm._v("library_add")])
+      ]),
       _vm._v(" "),
-      _vm._m(1, false, false)
+      _vm._m(0, false, false)
     ]
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mdl-card__actions mdl-card--border" }, [
-      _c(
-        "a",
-        {
-          staticClass:
-            "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-        },
-        [_vm._v("\n            All pages\n        ")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "mdl-layout-spacer" }),
-      _vm._v(" "),
-      _c("i", { staticClass: "material-icons" }, [_vm._v("library_add")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -16418,7 +16417,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     components: { LayoutHeader: __WEBPACK_IMPORTED_MODULE_3__components_LayoutHeader___default.a },
 
     created: function created() {
-        this.$router.push('tags');
+        this.$router.replace('tags');
     },
 
 
@@ -16648,6 +16647,9 @@ module.exports = Component.exports
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__("./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Tags__ = __webpack_require__("./resources/assets/js/components/Tags.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Tags___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_Tags__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Tag__ = __webpack_require__("./resources/assets/js/components/Tag.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Tag___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_Tag__);
+
 
 
 
@@ -16656,7 +16658,7 @@ module.exports = Component.exports
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
-    routes: [{ path: '/tags', component: __WEBPACK_IMPORTED_MODULE_2__components_Tags___default.a }]
+    routes: [{ path: '/tags', name: 'tags', component: __WEBPACK_IMPORTED_MODULE_2__components_Tags___default.a }, { path: '/tag', name: 'tag', component: __WEBPACK_IMPORTED_MODULE_3__components_Tag___default.a, props: true }]
 }));
 
 /***/ }),

@@ -10,7 +10,7 @@
         </div>
 
         <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" @click="openTag">
                 All pages
             </a>
             <div class="mdl-layout-spacer"></div>
@@ -36,8 +36,10 @@ export default {
             expanded: false,
         };
     },
-    computed: {
-
+    methods: {
+        openTag() {
+            this.$router.push({name: 'tag', params: { tag: this.tag }});
+        },
     },
 };
 </script>
