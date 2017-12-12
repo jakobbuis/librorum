@@ -27,11 +27,8 @@
 </template>
 
 <script>
-import PageList from './PageList';
-
 export default {
     props: ['tag'],
-    components: { PageList },
     data() {
         return {
             expanded: false,
