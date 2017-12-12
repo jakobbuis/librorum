@@ -20,10 +20,6 @@
                 <main class="mdl-layout__content">
                     <div class="page-content">
                         <router-view></router-view>
-
-                        <button id=add class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect  mdl-button--colored" @click="tagNewPage">
-                            <i class="material-icons">add</i>
-                        </button>
                     </div>
                 </main>
             </div>

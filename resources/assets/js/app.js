@@ -18,10 +18,4 @@ const app = new Vue({
     created() {
         this.$router.replace('tags');
     },
-
-    methods: {
-        tagNewPage() {
-            alert('Processing a new page!');
-        }
-    },
 });
