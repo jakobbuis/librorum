@@ -15,9 +15,11 @@ class Tag extends Resource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'tag' => $this->tag,
             'pages' => $this->pages()->limit(5)->get()->map->identifier(),
             'more_pages' => $this->pages->count() > 5,
+            'starred' => $this->starred,
         ];
     }
 }

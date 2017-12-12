@@ -20,8 +20,8 @@
         </div>
 
         <div class="mdl-card__menu">
-            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                <i class="material-icons">star_border</i>
+            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" @click="star">
+                <i class="material-icons">{{ starStatus }}</i>
             </button>
         </div>
     </div>
@@ -39,6 +39,17 @@ export default {
         openTag() {
             this.$router.push({name: 'tag', params: { tag: this.tag }});
         },
+
+        star() {
+            this.tag.starred = !this.tag.starred;
+            axios.patch(`/tags/${this.tag.id}`, {starred: this.tag.starred});
+        }
+    },
+
+    computed: {
+        starStatus() {
+            return this.tag.starred ? 'star' : 'star_border';
+        }
     },
 };
 </script>

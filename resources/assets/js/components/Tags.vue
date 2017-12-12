@@ -1,6 +1,6 @@
 <template>
     <div>
-        <tag v-for="tag in tags" key="tag" :tag="tag"></tag>
+        <tag v-for="tag in tags" key="tag.tag" :tag="tag"></tag>
     </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
 
     created() {
         axios.get('/tags').then(response => this.tags = response.data.data);
-    }
+    },
 };
 </script>
 
