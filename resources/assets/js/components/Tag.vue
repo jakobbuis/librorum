@@ -17,8 +17,6 @@
             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" @click="openTag">
                 All pages
             </a>
-            <div class="mdl-layout-spacer"></div>
-            <i class="material-icons">library_add</i>
         </div>
 
         <div class="mdl-card__menu">
