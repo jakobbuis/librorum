@@ -1,6 +1,6 @@
 <template>
     <div>
-        <tag v-for="tag in tags" key="tag.tag" :tag="tag"></tag>
+        <tag v-for="(tag, index) in naturalOrderedTags" key="tag.tag" :tag="tag" v-model="naturalOrderedTags[index]"></tag>
     </div>
 </template>
 
@@ -17,6 +17,15 @@ export default {
 
     created() {
         axios.get('/tags').then(response => this.tags = response.data.data);
+    },
+
+    computed: {
+        naturalOrderedTags(){
+            return this.tags.sort((a,b) => {
+                const starred = b.starred - a.starred;
+                return starred === 0 ? a.tag.localeCompare(b.tag) : starred;
+            });
+        },
     },
 };
 </script>
