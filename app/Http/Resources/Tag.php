@@ -16,7 +16,8 @@ class Tag extends Resource
     {
         return [
             'tag' => $this->tag,
-            'pages' => $this->pages->map->identifier(),
+            'pages' => $this->pages()->limit(5)->get()->map->identifier(),
+            'more_pages' => $this->pages->count() > 5,
         ];
     }
 }

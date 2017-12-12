@@ -8,6 +8,9 @@
             <span class="mdl-chip" v-for="page in tag.pages">
                 <span class="mdl-chip__text">{{ page }}</span>
             </span>
+            <span class="mdl-chip" v-if="tag.more_pages">
+                <span class="mdl-chip__text">&hellip;</span>
+            </span>
         </div>
 
         <div class="mdl-card__actions mdl-card--border">
