@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <tag v-for="(tag, index) in naturalOrderedTags" key="tag.tag" :tag="tag" v-model="naturalOrderedTags[index]"></tag>
-    </div>
+    <transition-group tag="div" name="tag-complete" :duration="500">
+        <tag v-for="(tag, index) in naturalOrderedTags" v-bind:key="tag.tag" :tag="tag" v-model="naturalOrderedTags[index]"></tag>
+    </transition-group>
 </template>
 
 <script>
@@ -33,5 +33,8 @@ export default {
 <style scoped>
 div {
     background-color: #fafafa;
+}
+.tag-complete-move {
+  transition: transform 0.5s;
 }
 </style>
