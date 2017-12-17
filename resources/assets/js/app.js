@@ -14,8 +14,4 @@ const app = new Vue({
     el: '#app',
     router,
     components: { LayoutHeader },
-
-    created() {
-        this.$router.replace('tags');
-    },
 });

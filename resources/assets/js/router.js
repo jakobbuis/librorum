@@ -7,8 +7,9 @@ import TagDetail from './components/TagDetail';
 Vue.use(VueRouter);
 
 export default new VueRouter({
+    mode: 'history',
     routes: [
-        { path: '/tags', name: 'tags', component: Tags },
-        { path: '/tag', name: 'tag', component: TagDetail, props: true },
+        { path: '/', name: 'tags', component: Tags },
+        { path: '/tag/:id', name: 'tag', component: TagDetail },
     ],
 });

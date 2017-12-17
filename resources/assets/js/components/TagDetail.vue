@@ -12,7 +12,7 @@
                 <th>Note</th>
             </tr></thead>
             <tbody>
-                <tr v-for="page in fullTag.pages">
+                <tr v-for="page in tag.pages">
                     <td>{{ page.notebook }}</td>
                     <td>{{ page.start_number }}&#8210;{{ page.end_number }}</td>
                     <td>{{ page.description }}</td>
@@ -26,19 +26,18 @@
 import Vue from 'vue';
 
 export default {
-    props: ['tag'],
-
     data() {
         return {
-            fullTag: {
+            tag: {
                 pages: [],
             },
         };
     },
 
     created() {
-        axios.get(`/tags/${this.tag.id}`).then((response) => {
-            Vue.set(this, 'fullTag', response.data.data);
+        const id = this.$route.params.id;
+        axios.get(`/tags/${id}`).then((response) => {
+            Vue.set(this, 'tag', response.data.data);
         });
     },
 

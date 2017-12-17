@@ -37,7 +37,7 @@ export default {
     },
     methods: {
         openTag() {
-            this.$router.push({name: 'tag', params: { tag: this.tag }});
+            this.$router.push({name: 'tag', params: { id: this.tag.id }});
         },
 
         star() {
