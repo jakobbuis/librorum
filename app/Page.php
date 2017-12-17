@@ -24,6 +24,24 @@ class Page extends Model
      */
     public function identifier()
     {
-        return implode('', [$this->notebook->slug, $this->start_number, '-', $this->end_number]);
+        return implode('', [$this->notebook->slug, ' ', $this->start_number, '-', $this->end_number]);
+    }
+
+    /**
+     * Format the starting page number with a leading zero if required
+     * @return string e.g. 01, 06, 10, 11 or 123
+     */
+    public function getStartNumberAttribute(int $value)
+    {
+        return str_pad((string) $value, 2, '0', STR_PAD_LEFT);
+    }
+
+    /**
+     * Format the ending page number with a leading zero if required
+     * @return string e.g. 01, 06, 10, 11 or 123
+     */
+    public function getEndNumberAttribute(int $value)
+    {
+        return str_pad((string) $value, 2, '0', STR_PAD_LEFT);
     }
 }
