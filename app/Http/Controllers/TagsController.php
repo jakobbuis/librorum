@@ -50,7 +50,7 @@ class TagsController extends Controller
     public function update(Request $request, Tag $tag)
     {
         $tag->update($request->only('starred'));
-        return \App\Http\Resources\Tag::make($tag);
+        return response(null, 204);
     }
 
     /**

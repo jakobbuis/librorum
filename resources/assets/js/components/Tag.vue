@@ -43,7 +43,7 @@ export default {
         star() {
             this.tag.starred = !this.tag.starred;
             axios.patch(`/tags/${this.tag.id}`, {starred: this.tag.starred})
-                 .then(response => this.$emit('input', response.data.data));
+                 .then(() => this.$emit('input', this.tag));
         }
     },
 
