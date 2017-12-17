@@ -1,17 +1,15 @@
 <template>
-    <div>
-        <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
-            <i class="material-icons">search</i>
-        </label>
+    <main>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             <input class="mdl-textfield__input" type="text" id="query" v-model="filter">
             <label class="mdl-textfield__label" for="query">Search</label>
         </div>
+        <i class="material-icons" v-if="filter" @click="clearFilter">clear</i>
         </form>
         <transition-group tag="div" name="tag-complete" :duration="500">
             <tag v-for="(tag, index) in displayedTags" v-bind:key="tag.tag" :tag="tag" v-model="displayedTags[index]"></tag>
         </transition-group>
-    </div>
+    </main>
 </template>
 
 <script>
@@ -28,6 +26,13 @@ export default {
 
     created() {
         axios.get('/tags').then(response => this.tags = response.data.data);
+    },
+
+    methods: {
+        clearFilter() {
+            this.filter = null;
+            this.$el.querySelector('#query').blur();
+        },
     },
 
     computed: {
@@ -51,8 +56,8 @@ export default {
 </script>
 
 <style scoped>
-div {
-    background-color: #fafafa;
+main {
+    margin: 1em;
 }
 .tag-complete-move {
   transition: transform 0.5s;

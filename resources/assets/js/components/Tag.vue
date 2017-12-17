@@ -57,7 +57,7 @@ export default {
 
 <style lang="scss" scoped>
 .mdl-card {
-    margin: 1em;
+    margin-bottom: 1em;
 
     h4, .mdl-card__title {
         margin-bottom: 0;
