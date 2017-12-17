@@ -4,7 +4,6 @@ namespace App;
 
 use App\Notebook;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {

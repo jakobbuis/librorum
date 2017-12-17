@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Tag;
-use Illuminate\Database\Eloquent\Model;
 
 class Notebook extends Model
 {

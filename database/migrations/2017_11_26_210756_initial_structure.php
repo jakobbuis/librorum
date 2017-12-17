@@ -9,41 +9,44 @@ class InitialStructure extends Migration
     public function up()
     {
         Schema::create('notebooks', function(Blueprint $table){
-            $table->increments('id');
+            $table->char('id', 36);
             $table->string('slug');
             $table->string('page_count')->nullable();
             $table->timestamps();
 
+            $table->primary('id');
             $table->unique('slug');
         });
 
         Schema::create('pages', function(Blueprint $table){
-            $table->increments('id');
-            $table->integer('notebook_id')->unsigned();
+            $table->char('id', 36);
+            $table->char('notebook_id', 36);
             $table->integer('start_number');
             $table->integer('end_number');
             $table->string('description')->nullable();
             $table->timestamps();
 
+            $table->primary('id');
             $table->foreign('notebook_id')
                   ->references('id')->on('notebooks')
                   ->onUpdate('cascade')->onDelete('cascade');
         });
 
         Schema::create('tags', function(Blueprint $table){
-            $table->increments('id');
+            $table->char('id', 36);
             $table->string('tag');
             $table->timestamps();
+
+            $table->primary('id');
         });
 
         Schema::create('pages_tags', function(Blueprint $table){
-            $table->integer('page_id')->unsigned();
-            $table->integer('tag_id')->unsigned();
+            $table->char('page_id', 36);
+            $table->char('tag_id', 36);
 
             $table->foreign('page_id')
                   ->references('id')->on('pages')
                   ->onUpdate('cascade')->onDelete('cascade');
-
             $table->foreign('tag_id')
                   ->references('id')->on('tags')
                   ->onUpdate('cascade')->onDelete('cascade');
