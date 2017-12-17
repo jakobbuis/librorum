@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class Tag extends Resource
+class PartialTag extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -17,7 +17,8 @@ class Tag extends Resource
          return [
             'id' => $this->id,
             'tag' => $this->tag,
-            'pages' => Page::collection($this->pages),
+            'pages' => $this->pages()->limit(5)->get()->map->identifier(),
+            'more_pages' => $this->pages->count() > 5,
             'starred' => $this->starred,
         ];
     }

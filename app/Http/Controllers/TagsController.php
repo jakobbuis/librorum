@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\Tag as Resource;
 use App\Tag;
 use Illuminate\Http\Request;
 
@@ -16,7 +15,7 @@ class TagsController extends Controller
     public function index()
     {
         $tags = Tag::with('pages')->naturalOrder()->get();
-        return Resource::collection($tags);
+        return \App\Http\Resources\PartialTag::collection($tags);
     }
 
     /**
@@ -38,7 +37,7 @@ class TagsController extends Controller
      */
     public function show(Tag $tag)
     {
-        //
+        return \App\Http\Resources\Tag::make($tag);
     }
 
     /**
@@ -51,7 +50,7 @@ class TagsController extends Controller
     public function update(Request $request, Tag $tag)
     {
         $tag->update($request->only('starred'));
-        return Resource::make($tag);
+        return \App\Http\Resources\Tag::make($tag);
     }
 
     /**

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class Tag extends Resource
+class Page extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,11 +14,12 @@ class Tag extends Resource
      */
     public function toArray($request)
     {
-         return [
+        return [
             'id' => $this->id,
-            'tag' => $this->tag,
-            'pages' => Page::collection($this->pages),
-            'starred' => $this->starred,
+            'notebook' => $this->notebook->slug,
+            'start_number' => $this->start_number,
+            'end_number' => $this->end_number,
+            'description' => $this->description,
         ];
     }
 }
