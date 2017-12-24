@@ -1714,6 +1714,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -2580,24 +2582,38 @@ var render = function() {
     _vm._v(" "),
     _c("h2", [_vm._v("Pages")]),
     _vm._v(" "),
-    _c("table", [
-      _vm._m(0, false, false),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.tag.pages, function(page) {
-          return _c("tr", [
-            _c("td", [_vm._v(_vm._s(page.notebook))]),
-            _vm._v(" "),
-            _c("td", [
-              _vm._v(_vm._s(page.start_number) + "‒" + _vm._s(page.end_number))
-            ]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(page.description))])
-          ])
-        })
-      )
-    ])
+    _c(
+      "table",
+      { staticClass: "mdl-data-table mdl-js-data-table mdl-shadow--2dp" },
+      [
+        _vm._m(0, false, false),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.tag.pages, function(page) {
+            return _c("tr", { style: { "background-color": page.color } }, [
+              _c("td", { staticClass: "mdl-data-table__cell--non-numeric" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(page.notebook) +
+                    "\n                "
+                )
+              ]),
+              _vm._v(" "),
+              _c("td", [
+                _vm._v(
+                  _vm._s(page.start_number) + "‒" + _vm._s(page.end_number)
+                )
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "mdl-data-table__cell--non-numeric" }, [
+                _vm._v(_vm._s(page.description))
+              ])
+            ])
+          })
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -2607,11 +2623,15 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Notebook")]),
+        _c("th", { staticClass: "mdl-data-table__cell--non-numeric" }, [
+          _vm._v("Notebook")
+        ]),
         _vm._v(" "),
         _c("th", [_vm._v("Pages")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Note")])
+        _c("th", { staticClass: "mdl-data-table__cell--non-numeric" }, [
+          _vm._v("Note")
+        ])
       ])
     ])
   }

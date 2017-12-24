@@ -5,17 +5,19 @@
             <i class="material-icons">{{ starStatus }}</i>
         </h1>
         <h2>Pages</h2>
-        <table>
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
             <thead><tr>
-                <th>Notebook</th>
+                <th class="mdl-data-table__cell--non-numeric">Notebook</th>
                 <th>Pages</th>
-                <th>Note</th>
+                <th class="mdl-data-table__cell--non-numeric">Note</th>
             </tr></thead>
             <tbody>
-                <tr v-for="page in tag.pages">
-                    <td>{{ page.notebook }}</td>
+                <tr v-for="page in tag.pages" :style="{'background-color': page.color}">
+                    <td class="mdl-data-table__cell--non-numeric">
+                        {{ page.notebook }}
+                    </td>
                     <td>{{ page.start_number }}&#8210;{{ page.end_number }}</td>
-                    <td>{{ page.description }}</td>
+                    <td class="mdl-data-table__cell--non-numeric">{{ page.description }}</td>
                 </tr>
             </tbody>
         </table>
