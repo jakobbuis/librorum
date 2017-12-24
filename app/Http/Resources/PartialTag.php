@@ -17,7 +17,7 @@ class PartialTag extends Resource
          return [
             'id' => $this->id,
             'tag' => $this->tag,
-            'pages' => $this->pages()->limit(5)->get()->map->identifier(),
+            'pages' => Page::collection($this->pages()->limit(5)->get()),
             'more_pages' => $this->pages->count() > 5,
             'starred' => $this->starred,
         ];

@@ -5,8 +5,10 @@
         </div>
 
         <div class="mdl-card__supporting-text">
-            <span class="mdl-chip" v-for="page in tag.pages">
-                <span class="mdl-chip__text">{{ page }}</span>
+            <span class="mdl-chip" v-for="page in tag.pages" :style="{'background-color': page.color}">
+                <span class="mdl-chip__text">
+                    {{ page.identifier }}
+                </span>
             </span>
             <span class="mdl-chip" v-if="tag.more_pages">
                 <span class="mdl-chip__text">&hellip;</span>
@@ -50,7 +52,7 @@ export default {
     computed: {
         starStatus() {
             return this.tag.starred ? 'star' : 'star_border';
-        }
+        },
     },
 };
 </script>

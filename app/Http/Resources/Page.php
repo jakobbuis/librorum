@@ -16,7 +16,9 @@ class Page extends Resource
     {
         return [
             'id' => $this->id,
+            'identifier' => $this->identifier(),
             'notebook' => $this->notebook->slug,
+            'color' => '#'.$this->notebook->color,
             'start_number' => $this->start_number,
             'end_number' => $this->end_number,
             'description' => $this->description,
