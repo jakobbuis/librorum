@@ -4,3 +4,7 @@
   bottom: 16px;
 }
 
+.mdl-layout__content {
+  background-color: #fafafa;
+}
+
