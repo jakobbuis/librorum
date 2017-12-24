@@ -4,7 +4,6 @@
             {{ tag.tag }}
             <i class="material-icons">{{ starStatus }}</i>
         </h1>
-        <h2>Pages</h2>
         <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
             <thead><tr>
                 <th class="mdl-data-table__cell--non-numeric">Notebook</th>

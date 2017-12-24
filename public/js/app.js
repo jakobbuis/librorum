@@ -1715,7 +1715,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -2579,8 +2578,6 @@ var render = function() {
         _vm._v(_vm._s(_vm.starStatus))
       ])
     ]),
-    _vm._v(" "),
-    _c("h2", [_vm._v("Pages")]),
     _vm._v(" "),
     _c(
       "table",
