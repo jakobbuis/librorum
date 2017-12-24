@@ -25,7 +25,8 @@
             </div>
         </div>
 
-        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons">
+        <link rel="stylesheet" href="https://unpkg.com/vue-material@beta/dist/theme/default.css">
         @include('configuration')
         <script src="{{ mix('js/app.js') }}"></script>
     </body>
