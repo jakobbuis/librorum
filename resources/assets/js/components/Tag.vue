@@ -13,14 +13,6 @@
                 <md-chip v-if="tag.more_pages">
                     &hellip;
                 </md-chip>
-                <!-- <span class="mdl-chip" v-for="page in tag.pages" :style="{'background-color': page.color}">
-                    <span class="mdl-chip__text">
-                        {{ page.identifier }}
-                    </span>
-                </span>
-                <span class="mdl-chip" v-if="tag.more_pages">
-                    <span class="mdl-chip__text">&hellip;</span>
-                </span> -->
             </md-card-content>
 
             <md-card-actions>
