@@ -4,22 +4,24 @@
             {{ tag.tag }}
             <i class="material-icons">{{ starStatus }}</i>
         </h1>
-        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-            <thead><tr>
-                <th class="mdl-data-table__cell--non-numeric">Notebook</th>
-                <th>Pages</th>
-                <th class="mdl-data-table__cell--non-numeric">Note</th>
-            </tr></thead>
-            <tbody>
-                <tr v-for="page in tag.pages" :style="{'background-color': page.color}">
-                    <td class="mdl-data-table__cell--non-numeric">
+
+        <md-table>
+            <md-table-row>
+                <md-table-head>Notebook</md-table-head>
+                <md-table-head md-numeric>Pages</md-table-head>
+                <md-table-head>Notes</md-table-head>
+            </md-table-row>
+
+            <md-table-row v-for="page in tag.pages" :key="page.identifier">
+                <md-table-cell md-numeric>
+                    <md-chip :style="{'background-color': page.color}">
                         {{ page.notebook }}
-                    </td>
-                    <td>{{ page.start_number }}&#8210;{{ page.end_number }}</td>
-                    <td class="mdl-data-table__cell--non-numeric">{{ page.description }}</td>
-                </tr>
-            </tbody>
-        </table>
+                    </md-chip>
+                </md-table-cell>
+                <md-table-cell>{{ page.start_number }}&#8210;{{ page.end_number }}</md-table-cell>
+                <md-table-cell>{{ page.description }}</md-table-cell>
+            </md-table-row>
+        </md-table>
     </div>
 </template>
 
