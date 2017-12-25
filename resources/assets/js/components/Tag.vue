@@ -24,12 +24,28 @@
                 </md-button>
             </md-card-actions>
         </md-ripple>
+
+        <confirmation-bar
+            :text="confirmation.text"
+            :undo-callback="confirmation.undoCallback">
+        </confirmation-bar>
     </md-card>
 </template>
 
 <script>
 export default {
     props: ['tag'],
+
+    data() {
+        return {
+            confirmation: {
+                visible: false,
+                text: null,
+                undoCallback: null,
+            },
+        };
+    },
+
     methods: {
         openTag() {
             this.$router.push({name: 'tag', params: { id: this.tag.id }});
@@ -39,7 +55,12 @@ export default {
             this.tag.starred = !this.tag.starred;
             axios.patch(`/tags/${this.tag.id}`, {starred: this.tag.starred})
                  .then(() => this.$emit('input', this.tag));
-        }
+            if (!this.tag.starred) {
+                this.confirmation.visible = true;
+                this.confirmation.text = `${this.tag.tag} unstarred`;
+                this.confirmation.undoCallback = this.star;
+            }
+        },
     },
 
     computed: {
