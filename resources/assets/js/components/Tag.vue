@@ -16,8 +16,12 @@
             </md-card-content>
 
             <md-card-actions>
-                <md-button @click="openTag"><md-icon>bookmark</md-icon></md-button>
-                <md-button><md-icon>{{ starStatus }}</md-icon></md-button>
+                <md-button class="md-icon-button" @click="openTag">
+                    <md-icon>bookmark</md-icon>
+                </md-button>
+                <md-button class="md-icon-button" @click="star">
+                    <md-icon>{{ starStatus }}</md-icon>
+                </md-button>
             </md-card-actions>
         </md-ripple>
     </md-card>
