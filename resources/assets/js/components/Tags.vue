@@ -56,9 +56,6 @@ export default {
 </script>
 
 <style scoped>
-main {
-    margin: 1em;
-}
 .tag-complete-move {
   transition: transform 0.5s;
 }
