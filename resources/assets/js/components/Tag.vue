@@ -25,22 +25,11 @@
             </md-card-actions>
         </md-ripple>
     </md-card>
-        <!-- <div class="mdl-card__menu">
-            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" @click="star">
-                <i class="material-icons">{{ starStatus }}</i>
-            </button>
-        </div>
-    </div> -->
 </template>
 
 <script>
 export default {
     props: ['tag'],
-    data() {
-        return {
-            expanded: false,
-        };
-    },
     methods: {
         openTag() {
             this.$router.push({name: 'tag', params: { id: this.tag.id }});
