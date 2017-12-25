@@ -14,11 +14,14 @@ class PartialTag extends Resource
      */
     public function toArray($request)
     {
+        $pageSubset = 3;
+
          return [
             'id' => $this->id,
             'tag' => $this->tag,
-            'pages' => Page::collection($this->pages()->limit(5)->get()),
-            'more_pages' => $this->pages->count() > 5,
+            'pages' => Page::collection($this->pages()->limit($pageSubset)->get()),
+            'more_pages' => $this->pages()->count() > $pageSubset,
+            'page_count' => $this->pages->count(),
             'starred' => $this->starred,
         ];
     }

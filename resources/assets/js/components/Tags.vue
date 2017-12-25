@@ -1,10 +1,10 @@
 <template>
     <main>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" id="query" v-model="filter">
-            <label class="mdl-textfield__label" for="query">Search</label>
-        </div>
-        <i class="material-icons" v-if="filter" @click="clearFilter">clear</i>
+        <form action="#">
+            <md-field md-clearable>
+                <label>Search</label>
+                <md-input v-model="filter"></md-input>
+            </md-field>
         </form>
         <transition-group tag="div" name="tag-complete" :duration="500">
             <tag v-for="(tag, index) in displayedTags" v-bind:key="tag.tag" :tag="tag" v-model="displayedTags[index]"></tag>

@@ -1,32 +1,40 @@
 <template>
-    <div class="demo-card-event mdl-card mdl-shadow--2dp">
-        <div class="mdl-card__title mdl-card--expand">
-            <h4>{{ tag.tag }}</h4>
-        </div>
+    <md-card md-with-hover>
+        <md-ripple>
+            <md-card-header>
+                <div class="md-title">{{ tag.tag }}</div>
+                <div class="md-subhead">{{ tag.page_count }} pages</div>
+            </md-card-header>
 
-        <div class="mdl-card__supporting-text">
-            <span class="mdl-chip" v-for="page in tag.pages" :style="{'background-color': page.color}">
-                <span class="mdl-chip__text">
+            <md-card-content>
+                <md-chip v-for="page in tag.pages" key="page.identifier" :style="{'background-color': page.color}">
                     {{ page.identifier }}
+                </md-chip>
+                <md-chip v-if="tag.more_pages">
+                    &hellip;
+                </md-chip>
+                <!-- <span class="mdl-chip" v-for="page in tag.pages" :style="{'background-color': page.color}">
+                    <span class="mdl-chip__text">
+                        {{ page.identifier }}
+                    </span>
                 </span>
-            </span>
-            <span class="mdl-chip" v-if="tag.more_pages">
-                <span class="mdl-chip__text">&hellip;</span>
-            </span>
-        </div>
+                <span class="mdl-chip" v-if="tag.more_pages">
+                    <span class="mdl-chip__text">&hellip;</span>
+                </span> -->
+            </md-card-content>
 
-        <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" @click="openTag">
-                All pages
-            </a>
-        </div>
-
-        <div class="mdl-card__menu">
+            <md-card-actions>
+                <md-button @click="openTag"><md-icon>bookmark</md-icon></md-button>
+                <md-button><md-icon>{{ starStatus }}</md-icon></md-button>
+            </md-card-actions>
+        </md-ripple>
+    </md-card>
+        <!-- <div class="mdl-card__menu">
             <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" @click="star">
                 <i class="material-icons">{{ starStatus }}</i>
             </button>
         </div>
-    </div>
+    </div> -->
 </template>
 
 <script>
@@ -58,29 +66,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.mdl-card {
+.md-card {
     margin-bottom: 1em;
-
-    h4, .mdl-card__title {
-        margin-bottom: 0;
-    }
-
-    & > .mdl-card__title {
-        align-items: flex-start;
-    }
-
-    & > .mdl-card__title > h4 {
-        margin-top: 0;
-    }
-
-    & > .mdl-card__actions {
-        display: flex;
-        box-sizing:border-box;
-        align-items: center;
-    }
-
-    & > .mdl-card__actions > .material-icons {
-        padding-right: 10px;
-    }
 }
 </style>
