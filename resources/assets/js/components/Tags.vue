@@ -9,6 +9,12 @@
         <transition-group tag="div" name="tag-complete" :duration="500">
             <tag v-for="(tag, index) in displayedTags" v-bind:key="tag.tag" :tag="tag" v-model="displayedTags[index]"></tag>
         </transition-group>
+
+        <router-link to="/add-page">
+            <md-button class="md-fab md-primary">
+                <md-icon>add</md-icon>
+            </md-button>
+        </router-link>
     </main>
 </template>
 
@@ -58,5 +64,11 @@ export default {
 <style scoped>
 .tag-complete-move {
   transition: transform 0.5s;
+}
+.md-fab {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 2;
 }
 </style>

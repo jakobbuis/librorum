@@ -13,12 +13,12 @@
             </md-table-row>
 
             <md-table-row v-for="page in tag.pages" :key="page.identifier">
-                <md-table-cell md-numeric>
+                <md-table-cell>
                     <md-chip :style="{'background-color': page.color}">
                         {{ page.notebook }}
                     </md-chip>
                 </md-table-cell>
-                <md-table-cell>{{ page.start_number }}&#8210;{{ page.end_number }}</md-table-cell>
+                <md-table-cell md-numeric>{{ page.start_number }}&#8210;{{ page.end_number }}</md-table-cell>
                 <md-table-cell>{{ page.description }}</md-table-cell>
             </md-table-row>
         </md-table>
@@ -51,3 +51,10 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.md-chip {
+    width: 4em;
+    text-align: center;
+}
+</style>
