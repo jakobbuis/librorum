@@ -73,6 +73,6 @@ export default {
 
 <style lang="scss" scoped>
 .md-card {
-    margin-bottom: 1em;
+    margin: 0 0 16px 0;
 }
 </style>
