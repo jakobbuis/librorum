@@ -16,7 +16,9 @@
         <div class="page-container">
             <md-app>
                 <md-app-toolbar class="md-primary">
-                    <span class="md-title">Librorum</span>
+                    <router-link to="/">
+                        <span class="md-title">Librorum</span>
+                    </router-link>
                 </md-app-toolbar>
 
                 <md-app-content>
