@@ -22,6 +22,7 @@
             </md-field>
 
             <md-autocomplete
+                ref="tagAutocompleteField"
                 v-model="tagInputString" :value="tagInputString"
                 :md-options="tagNames"
                 :md-open-on-focus="false"
@@ -74,6 +75,7 @@ export default {
             const tag = this.tags.filter((tag) => tag.tag === this.tagInputString)[0];
             this.selectedTags.push(tag);
             this.tagInputString = '';
+            this.$refs.tagAutocompleteField.searchTerm = '';
         },
 
         removeTag(index) {
