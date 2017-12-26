@@ -4,6 +4,7 @@ namespace App;
 
 class Page extends Model
 {
+    protected $fillable = ['description', 'start_number', 'end_number'];
     protected $with = ['notebook'];
 
     public function notebook()

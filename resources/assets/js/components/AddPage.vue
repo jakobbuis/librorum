@@ -1,44 +1,65 @@
 <template>
-    <main>
-        <h1>Add page</h1>
-        <form action="#">
-            <md-field>
-                <label for="notebook">Notebook</label>
-                <md-select v-model="selectedNotebook" name="notebook" id="notebook">
-                    <md-option :value="notebook.id" v-for="notebook in notebooks" :key="notebook.id">
-                        {{ notebook.slug }}
-                    </md-option>
-                </md-select>
-            </md-field>
+    <form novalidate class="md-layout-row md-gutter" @submit.prevent="savePage">
+        <md-card class="md-flex-50 md-flex-small-100">
+            <md-card-header>
+                <div class="md-title">Add a page</div>
+            </md-card-header>
 
-            <md-field>
-                <label>Starting page number</label>
-                <md-input v-model="start_number" type="number"></md-input>
-            </md-field>
+            <md-card-content>
+                <div class="md-layout-row md-gutter md-layout-wrap">
+                    <div class="md-flex md-flex-small-100">
+                        <md-field>
+                            <label for="notebook">Notebook</label>
+                            <md-select name="notebook" id="notebook" v-model="form.notebook" md-dense>
+                                <md-option v-for="notebook in notebooks" :key="notebook.id" :value="notebook.id">{{ notebook.slug }}</md-option>
+                            </md-select>
+                        </md-field>
+                    </div>
 
-            <md-field>
-                <label>Last page number</label>
-                <md-input v-model="end_number" type="number"></md-input>
-            </md-field>
 
-            <md-autocomplete
-                ref="tagAutocompleteField"
-                v-model="tagInputString" :value="tagInputString"
-                :md-options="tagNames"
-                :md-open-on-focus="false"
-                @md-selected="addTag">
-                <label>Tags</label>
-            </md-autocomplete>
+                    <div class="md-flex md-flex-small-100">
+                        <md-field>
+                            <label for="start_number">Starting page number</label>
+                            <md-input type="number" id="start_number" name="start_number" autocomplete="start_number" v-model="form.start_number" />
+                        </md-field>
+                    </div>
 
-            <md-chip
-                md-deletable
-                v-for="(tag, index) in selectedTags"
-                :key="tag.tag"
-                @md-delete="removeTag(index)">
-                {{ tag.tag }}
-            </md-chip>
-        </form>
-    </main>
+                    <div class="md-flex md-flex-small-100">
+                        <md-field>
+                            <label for="end_number">Last page number</label>
+                            <md-input type="number" id="end_number" name="end_number" autocomplete="end_number" v-model="form.end_number" />
+                        </md-field>
+                    </div>
+
+                    <div class="md-flex md-flex-small-100">
+                        <md-autocomplete
+                            id="tags" name="tags"
+                            ref="tagAutocompleteField"
+                            v-model="form.tagInputString" :value="form.tagInputString"
+                            :md-options="tagNames"
+                            :md-open-on-focus="false"
+                            @md-selected="addTag">
+                            <label>Tags</label>
+                        </md-autocomplete>
+                        <md-chip
+                            md-deletable
+                            v-for="(tag, index) in form.tags"
+                            :key="tag.tag"
+                            @md-delete="removeTag(index)">
+                            {{ tag.tag }}
+                        </md-chip>
+                    </div>
+                </div>
+            </md-card-content>
+
+            <md-progress-bar md-mode="indeterminate" v-if="state === 'sending'" />
+
+            <md-card-actions>
+                <md-button type="submit" class="md-primary" :disabled="state === 'sending'">Add page</md-button>
+            </md-card-actions>
+        </md-card>
+        <md-snackbar :md-active="state === 'saved'">Page saved!</md-snackbar>
+    </form>
 </template>
 
 <script>
@@ -47,11 +68,15 @@ export default {
         return {
             notebooks: [],
             tags: [],
-            selectedNotebook: null,
-            start_number: null,
-            end_number: null,
-            tagInputString: '',
-            selectedTags: [],
+            form: {
+                notebook: null,
+                start_number: null,
+                end_number: null,
+                tags: [],
+                tagInputString: '', // temporary placeholder for the text in the autocomplete field, not submitted
+                description: null,
+            },
+            state: 'forming', // forming -> saving -> saved
         };
     },
 
@@ -72,14 +97,20 @@ export default {
 
     methods: {
         addTag() {
-            const tag = this.tags.filter((tag) => tag.tag === this.tagInputString)[0];
-            this.selectedTags.push(tag);
-            this.tagInputString = '';
+            const tag = this.tags.filter((tag) => tag.tag === this.form.tagInputString)[0];
+            this.form.tags.push(tag);
+            this.form.tagInputString = '';
             this.$refs.tagAutocompleteField.searchTerm = '';
         },
 
         removeTag(index) {
-            this.selectedTags.splice(index, 1);
+            this.form.tags.splice(index, 1);
+        },
+
+        savePage() {
+            axios.post('/pages', this.form).then((response) => {
+                this.state = 'saved';
+            });
         },
     },
 };
