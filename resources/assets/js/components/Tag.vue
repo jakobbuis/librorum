@@ -7,7 +7,7 @@
                 <p class="pages">
                     <span v-for="page in tag.pages" class="page" :style="{'background-color': page.color}">
                         {{ page.identifier }}
-                    </span><span v-if="tag.more_pages" class="page">&hellip;</span>
+                    </span>
                 </p>
             </div>
 
