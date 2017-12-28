@@ -17,16 +17,9 @@
                     </div>
 
                     <div class="md-flex md-flex-small-100">
-                        <a href="#" @click="notebookDialog.active = true">Start a new notebook</a>
-                        <md-dialog-prompt
-                            :md-active.sync="notebookDialog.active"
-                            v-model="notebookDialog.slug"
-                            md-title="How should I refer to this new notebook?"
-                            md-input-maxlength="2"
-                            md-input-placeholder="Use 2 characters"
-                            md-confirm-text="Add notebook"
-                            @md-confirm="addNotebook" />
-                        <md-snackbar :md-active="notebookDialog.saved">Notebook added!</md-snackbar>
+                        <router-link to="/add-notebook">
+                            Start a new notebook
+                        </router-link>
                     </div>
 
                     <div class="md-flex md-flex-small-100">
@@ -91,11 +84,6 @@ export default {
                 tagInputString: '', // temporary placeholder for the text in the autocomplete field, not submitted
                 description: null,
             },
-            notebookDialog: { // dialog to add a new notebook
-                active: false, // whether the dialog is active
-                slug: null, // form field to enter slug
-                saved: false, // triggers the confirmation toast
-            },
             state: 'forming', // forming -> saving -> saved
         };
     },
@@ -133,15 +121,6 @@ export default {
                 this.state = 'saved';
             });
         },
-
-        addNotebook() {
-            axios.post('/notebooks', { slug: this.notebookDialog.slug }).then((response) => {
-                const notebook = response.data.data;
-                this.notebooks.push(notebook);
-                this.form.notebook = notebook.id;
-                this.notebookDialog.saved = true;
-            });
-        }
     },
 };
 </script>
