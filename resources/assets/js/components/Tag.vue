@@ -1,35 +1,28 @@
 <template>
-    <md-card md-with-hover>
-        <md-ripple>
-            <md-card-header>
-                <div class="md-title">{{ tag.tag }}</div>
-                <div class="md-subhead">{{ tag.page_count }} pages</div>
-            </md-card-header>
+    <div>
+        <md-list-item @click="openTag">
+            <div class="md-list-item-text">
+                <span>{{ tag.tag }}</span>
+                <span class="tagline">{{ tag.page_count }} pages</span>
+                <p class="pages">
+                    <span v-for="page in tag.pages" class="page" :style="{'background-color': page.color}">
+                        {{ page.identifier }}
+                    </span><span v-if="tag.more_pages" class="page">&hellip;</span>
+                </p>
+            </div>
 
-            <md-card-content>
-                <md-chip v-for="page in tag.pages" key="page.identifier" :style="{'background-color': page.color}">
-                    {{ page.identifier }}
-                </md-chip>
-                <md-chip v-if="tag.more_pages">
-                    &hellip;
-                </md-chip>
-            </md-card-content>
+            <md-button class="md-icon-button md-list-action" @click.stop="star">
+                <md-icon>{{ starStatus }}</md-icon>
+            </md-button>
+        </md-list-item>
 
-            <md-card-actions>
-                <md-button class="md-icon-button" @click="openTag">
-                    <md-icon>bookmark</md-icon>
-                </md-button>
-                <md-button class="md-icon-button" @click="star">
-                    <md-icon>{{ starStatus }}</md-icon>
-                </md-button>
-            </md-card-actions>
-        </md-ripple>
+        <md-divider />
 
         <confirmation-bar
             :text="confirmation.text"
             :undo-callback="confirmation.undoCallback">
         </confirmation-bar>
-    </md-card>
+    </div>
 </template>
 
 <script>
@@ -72,7 +65,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.md-card {
-    margin: 0 0 16px 0;
+.tagline {
+    color: rgba(0, 0, 0, 0.54);
+}
+.pages {
+    margin-top: 0.5em;
+}
+.page {
+    color: rgba(0, 0, 0, 1) !important;
+    font-size: 0.75em;
+    width: auto;
+    display: inline-block;
+    background-color: #ccc;
+    padding: 0.1em 0.5em;
+    border-radius: 1em;
+    margin-right: 0.5em;
 }
 </style>

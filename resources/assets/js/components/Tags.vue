@@ -6,9 +6,12 @@
                 <md-input v-model="filter"></md-input>
             </md-field>
         </form>
-        <transition-group tag="div" name="tag-complete" :duration="500">
-            <tag v-for="(tag, index) in displayedTags" v-bind:key="tag.tag" :tag="tag" v-model="displayedTags[index]"></tag>
-        </transition-group>
+
+        <md-list class="md-triple-line">
+            <transition-group tag="div" name="tag-complete" :duration="500">
+                <tag v-for="(tag, index) in displayedTags" v-bind:key="tag.tag" :tag="tag" v-model="displayedTags[index]"></tag>
+            </transition-group>
+        </md-list>
 
         <router-link to="/add-page">
             <md-button class="md-fab md-primary">
