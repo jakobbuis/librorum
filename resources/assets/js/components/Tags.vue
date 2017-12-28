@@ -64,9 +64,12 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .tag-complete-move {
   transition: transform 0.5s;
+}
+.md-list {
+    border: 1px solid rgba(#000, .12);
 }
 .md-fab {
     position: fixed;
