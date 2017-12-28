@@ -14,7 +14,7 @@ class PartialTag extends Resource
      */
     public function toArray($request)
     {
-        $pageSubset = 3;
+        $pageSubset = 4;
 
          return [
             'id' => $this->id,
