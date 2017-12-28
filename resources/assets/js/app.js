@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import Vuelidate from 'vuelidate'
 import axios from 'axios';
 import VueMaterial from 'vue-material';
 import router from './router';
