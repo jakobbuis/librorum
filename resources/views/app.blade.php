@@ -13,19 +13,7 @@
 </head>
 <body>
     <div id="app">
-        <div class="page-container">
-            <md-app>
-                <md-app-toolbar class="md-primary">
-                    <router-link to="/">
-                        <span class="md-title">Librorum</span>
-                    </router-link>
-                </md-app-toolbar>
-
-                <md-app-content>
-                    <router-view></router-view>
-                </md-app-content>
-            </md-app>
-        </div>
+        <router-view></router-view>
     </div>
 
     @include('configuration')

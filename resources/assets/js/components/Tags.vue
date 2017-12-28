@@ -1,27 +1,41 @@
 <template>
-    <main>
-        <form action="#">
-            <md-field md-clearable>
-                <label>Search</label>
-                <md-input v-model="filter"></md-input>
-            </md-field>
-        </form>
+    <md-app>
+        <md-app-toolbar class="md-primary">
+            <span class="md-title">Librorum</span>
 
-        <md-list class="md-triple-line">
-            <transition-group tag="div" name="tag-complete" :duration="500">
-                <template v-for="(tag, index) in displayedTags">
-                    <tag :tag="tag" :key="tag.tag" v-model="displayedTags[index]"></tag>
-                    <md-divider :key="index" v-if="index !== displayedTags.length - 1" />
-                </template>
-            </transition-group>
-        </md-list>
+            <div class="md-toolbar-section-end">
+                <md-button class="md-icon-button">
+                    <md-icon>search</md-icon>
+                </md-button>
+            </div>
+        </md-app-toolbar>
 
-        <router-link to="/add-page">
-            <md-button class="md-fab md-primary">
-                <md-icon>add</md-icon>
-            </md-button>
-        </router-link>
-    </main>
+        <md-app-content>
+            <main>
+                <form action="#">
+                    <md-field md-clearable>
+                        <label>Search</label>
+                        <md-input v-model="filter"></md-input>
+                    </md-field>
+                </form>
+
+                <md-list class="md-triple-line">
+                    <transition-group tag="div" name="tag-complete" :duration="500">
+                        <template v-for="(tag, index) in displayedTags">
+                            <tag :tag="tag" :key="tag.tag" v-model="displayedTags[index]"></tag>
+                            <md-divider :key="index" v-if="index !== displayedTags.length - 1" />
+                        </template>
+                    </transition-group>
+                </md-list>
+
+                <router-link to="/add-page">
+                    <md-button class="md-fab md-primary">
+                        <md-icon>add</md-icon>
+                    </md-button>
+                </router-link>
+            </main>
+        </md-app-content>
+    </md-app>
 </template>
 
 <script>
