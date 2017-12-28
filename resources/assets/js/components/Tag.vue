@@ -16,8 +16,6 @@
             </md-button>
         </md-list-item>
 
-        <md-divider />
-
         <confirmation-bar
             :text="confirmation.text"
             :undo-callback="confirmation.undoCallback">

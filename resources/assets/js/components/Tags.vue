@@ -9,7 +9,10 @@
 
         <md-list class="md-triple-line">
             <transition-group tag="div" name="tag-complete" :duration="500">
-                <tag v-for="(tag, index) in displayedTags" v-bind:key="tag.tag" :tag="tag" v-model="displayedTags[index]"></tag>
+                <template v-for="(tag, index) in displayedTags">
+                    <tag :tag="tag" :key="tag.tag" v-model="displayedTags[index]"></tag>
+                    <md-divider :key="index" v-if="index !== displayedTags.length - 1" />
+                </template>
             </transition-group>
         </md-list>
 
