@@ -14,9 +14,12 @@ class Notebook extends Resource
      */
     public function toArray($request)
     {
+        $lastPage = $this->pages()->orderBy('end_number', 'desc')->first();
+
         return [
             'id' => $this->id,
             'slug' => $this->slug,
+            'highest_end_number' => (int) ($lastPage ? $lastPage->end_number : 0),
         ];
     }
 }

@@ -10,7 +10,11 @@
                     <div class="md-flex md-flex-small-100">
                         <md-field>
                             <label for="notebook">Notebook</label>
-                            <md-select name="notebook" id="notebook" v-model="form.notebook" md-dense>
+                            <md-select
+                                md-dense
+                                name="notebook"
+                                id="notebook"
+                                v-model="form.notebook">
                                 <md-option v-for="notebook in notebooks" :key="notebook.id" :value="notebook.id">{{ notebook.slug }}</md-option>
                             </md-select>
                         </md-field>
@@ -101,6 +105,20 @@ export default {
         tagNames() {
             return this.tags.map(tag => tag.tag);
         }
+    },
+
+    watch: {
+        // When you select a notebook, we preselect the probable next page for you
+        'form.notebook': function setNextPageAsDefault() {
+            if (this.form.start_number) {
+                return;
+            }
+
+            const notebook = this.notebooks.filter(n => n.id === this.form.notebook)[0];
+            if (notebook) {
+                this.form.start_number = notebook.highest_end_number + 1;
+            }
+        },
     },
 
     methods: {
