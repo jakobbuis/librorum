@@ -58,6 +58,13 @@
                             {{ tag.tag }}
                         </md-chip>
                     </div>
+
+                    <div class="md-flex md-flex-small-100">
+                        <md-field>
+                            <label for="description">Description (optional)</label>
+                            <md-input type="text" id="description" name="description" v-model="form.description" />
+                        </md-field>
+                    </div>
                 </div>
             </md-card-content>
 
