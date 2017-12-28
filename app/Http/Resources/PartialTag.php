@@ -20,7 +20,7 @@ class PartialTag extends Resource
             'id' => $this->id,
             'tag' => $this->tag,
             'pages' => Page::collection($this->pages()->limit($pageSubset)->get()),
-            'page_count' => $this->pages->count(),
+            'page_count' => $this->pageCount(),
             'starred' => $this->starred,
         ];
     }

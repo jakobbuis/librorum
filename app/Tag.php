@@ -18,4 +18,15 @@ class Tag extends Model
     {
         return $query->orderBy('starred', 'desc')->orderBy('tag', 'asc');
     }
+
+    /**
+     * Total number of actual pages (not page objects) for this tag
+     * @return int
+     */
+    public function pageCount()
+    {
+        return $this->pages->reduce(function($memo, $page) {
+            return $memo + $page->end_number - $page->start_number + 1;
+        }, 0);
+    }
 }
