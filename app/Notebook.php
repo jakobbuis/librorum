@@ -6,6 +6,8 @@ use App\Tag;
 
 class Notebook extends Model
 {
+    protected $fillable = ['slug'];
+
     public function pages()
     {
         return $this->hasMany(Page::class);
