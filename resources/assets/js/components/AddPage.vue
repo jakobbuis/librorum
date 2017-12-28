@@ -64,10 +64,10 @@
                 </div>
             </md-card-content>
 
-            <md-progress-bar md-mode="indeterminate" v-if="state === 'sending'" />
+            <md-progress-bar md-mode="indeterminate" v-if="state === 'saving'" />
 
             <md-card-actions>
-                <md-button type="submit" class="md-primary" :disabled="state === 'sending'">Add page</md-button>
+                <md-button type="submit" class="md-primary" :disabled="state === 'saving'">Add page</md-button>
             </md-card-actions>
         </md-card>
         <md-snackbar :md-active="state === 'saved'">Page saved!</md-snackbar>
@@ -128,6 +128,7 @@ export default {
         },
 
         savePage() {
+            this.state = 'saving';
             axios.post('/pages', this.form).then((response) => {
                 this.state = 'saved';
             });
