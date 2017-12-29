@@ -44,10 +44,7 @@
 </template>
 
 <script>
-import addNotebook from './AddNotebook.vue';
-
 export default {
-    components: { addNotebook },
     data() {
         return {
             form: {
