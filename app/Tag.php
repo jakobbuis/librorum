@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Tag extends Model
 {
-    protected $fillable = ['starred'];
+    protected $fillable = ['tag', 'starred'];
 
     public function pages()
     {

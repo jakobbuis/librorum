@@ -26,7 +26,10 @@ class TagsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tag = new Tag($request->only('tag'));
+        $tag->save();
+
+        return response(null, 204);
     }
 
     /**

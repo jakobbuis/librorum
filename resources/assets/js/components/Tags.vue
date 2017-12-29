@@ -29,11 +29,26 @@
             </md-app-content>
         </md-app>
 
-        <router-link to="/add-page">
-            <md-button class="md-fab md-primary">
-                <md-icon>add</md-icon>
-            </md-button>
-        </router-link>
+        <md-speed-dial md-event="click" md-direction="top">
+            <md-speed-dial-target class="md-primary">
+                <md-icon class="md-morph-initial">add</md-icon>
+                <md-icon class="md-morph-final">close</md-icon>
+            </md-speed-dial-target>
+
+            <md-speed-dial-content>
+                <router-link to="/add-page">
+                    <md-button class="md-icon-button">
+                        <md-icon>description</md-icon>
+                    </md-button>
+                </router-link>
+
+                <router-link to="/add-tag">
+                    <md-button class="md-icon-button">
+                        <md-icon>label</md-icon>
+                    </md-button>
+                </router-link>
+            </md-speed-dial-content>
+        </md-speed-dial>
     </div>
 </template>
 
@@ -84,10 +99,18 @@ export default {
 .md-list {
     border: 1px solid rgba(#000, .12);
 }
-.md-fab {
+.md-speed-dial {
     position: fixed;
     right: 16px;
     bottom: 16px;
     z-index: 2;
+
+    .md-button {
+        background-color: rgb(150, 150, 150);
+    }
+
+    .md-icon {
+        color: white;
+    }
 }
 </style>
