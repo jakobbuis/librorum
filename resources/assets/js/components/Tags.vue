@@ -21,7 +21,7 @@
                 <md-list class="md-triple-line">
                     <transition-group tag="div" name="tag-complete" :duration="500">
                         <template v-for="(tag, index) in displayedTags">
-                            <tag :tag="tag" :key="tag.tag" v-model="displayedTags[index]"></tag>
+                            <tag :tag="tag" :key="tag.id" v-model="displayedTags[index]"></tag>
                             <md-divider :key="index" v-if="index !== displayedTags.length - 1" />
                         </template>
                     </transition-group>
