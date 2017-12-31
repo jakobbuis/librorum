@@ -44,13 +44,16 @@
 </template>
 
 <script>
+import Timeable from '../mixins/Timeable';
+
 export default {
+    mixins: [Timeable],
+
     data() {
         return {
             form: {
                 slug: null,
             },
-            timers: [],
             state: 'forming', // forming -> saving -> saved
         };
     },
@@ -60,10 +63,7 @@ export default {
             this.state = 'saving';
             axios.post('/notebooks', this.form).then((response) => {
                 this.state = 'saved';
-                const timer = setTimeout(() => {
-                    history.back();
-                }, 3000);
-                this.timers.push(timer);
+                this.setTimer(3000, () => history.back());
             });
         },
 
@@ -72,9 +72,6 @@ export default {
         },
     },
 
-    beforeDestroy() {
-        this.timers.forEach(timer => clearTimeout(this.timers));
-        this.timers = [];
-    },
+
 };
 </script>
