@@ -64,6 +64,7 @@ class TagsController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+        return response(null, 204);
     }
 }

@@ -13,6 +13,13 @@
 </head>
 <body>
     <div id="app">
+        {{-- Generic confirmation bar  --}}
+        <confirmation-bar
+            :text="confirmation.text"
+            :undo-callback="confirmation.undoCallback">
+        </confirmation-bar>
+
+        {{-- Main UI --}}
         <router-view></router-view>
 
         {{-- Axios global error handling --}}
@@ -20,6 +27,7 @@
           :md-active.sync="axiosError"
           md-content="A critical error occured while executing your request. Please reload and try again."
           md-confirm-text="Okay" />
+
     </div>
 
     @include('configuration')

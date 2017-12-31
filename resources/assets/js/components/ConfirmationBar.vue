@@ -21,7 +21,9 @@ export default {
     watch: {
         text() {
             this.active = true;
+            console.log('confirmation bar triggered!');
             setTimeout(() => {
+                console.log('confirmation bar expired!');
                 this.active = false;
             }, 3000);
         },

@@ -24,6 +24,10 @@ const app = new Vue({
     router,
     data: {
         axiosError: false,
+        confirmation: {
+            text: null,
+            undoCallback: null,
+        },
     },
 
     created() {
@@ -31,6 +35,11 @@ const app = new Vue({
         axios.interceptors.response.use(null, (error) => {
             this.axiosError = true;
             return Promise.reject(error);
+        });
+
+        this.$on('deletedTag', (payload) => {
+            console.log('deleted tag, show notification');
+            this.confirmation.text = `${payload.name} deleted`;
         });
     },
 });

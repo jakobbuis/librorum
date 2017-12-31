@@ -13,6 +13,9 @@
                 <md-button class="md-icon-button" @click="star">
                     <md-icon>{{ starStatus }}</md-icon>
                 </md-button>
+                <md-button class="md-icon-button" @click="trash">
+                    <md-icon>delete</md-icon>
+                </md-button>
             </div>
         </md-app-toolbar>
 
@@ -67,6 +70,13 @@ export default {
         star() {
             this.tag.starred = !this.tag.starred;
             axios.patch(`/tags/${this.tag.id}`, {starred: this.tag.starred});
+        },
+
+        trash() {
+            axios.delete(`/tags/${this.tag.id}`).then(() => {
+                this.$router.app.$emit('deletedTag', { name: this.tag.tag });
+                this.$router.push('/');
+            });
         },
     },
 };
