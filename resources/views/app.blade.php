@@ -14,6 +14,12 @@
 <body>
     <div id="app">
         <router-view></router-view>
+
+        {{-- Axios global error handling --}}
+        <md-dialog-alert
+          :md-active.sync="axiosError"
+          md-content="A critical error occured while executing your request. Please reload and try again."
+          md-confirm-text="Okay" />
     </div>
 
     @include('configuration')

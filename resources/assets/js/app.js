@@ -22,4 +22,15 @@ Vue.component('confirmation-bar', ConfirmationBar);
 const app = new Vue({
     el: '#app',
     router,
+    data: {
+        axiosError: false,
+    },
+
+    created() {
+        // Use an interceptor to globally handle events
+        axios.interceptors.response.use(null, (error) => {
+            this.axiosError = true;
+            return Promise.reject(error);
+        });
+    },
 });
