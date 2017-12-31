@@ -50,6 +50,7 @@ export default {
             form: {
                 slug: null,
             },
+            timers: [],
             state: 'forming', // forming -> saving -> saved
         };
     },
@@ -59,15 +60,21 @@ export default {
             this.state = 'saving';
             axios.post('/notebooks', this.form).then((response) => {
                 this.state = 'saved';
-                setTimeout(() => {
+                const timer = setTimeout(() => {
                     history.back();
                 }, 3000);
+                this.timers.push(timer);
             });
         },
 
         toPageForm() {
             history.back();
         },
+    },
+
+    beforeDestroy() {
+        this.timers.forEach(timer => clearTimeout(this.timers));
+        this.timers = [];
     },
 };
 </script>
