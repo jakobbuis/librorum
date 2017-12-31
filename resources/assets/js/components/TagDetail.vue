@@ -74,7 +74,9 @@ export default {
 
         trash() {
             axios.delete(`/tags/${this.tag.id}`).then(() => {
-                this.$router.app.$emit('deletedTag', { name: this.tag.tag });
+                this.$router.app.$emit('tag_action', {
+                    text: `${this.tag.tag} deleted`,
+                });
                 this.$router.push('/');
             });
         },

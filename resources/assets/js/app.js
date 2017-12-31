@@ -37,9 +37,11 @@ const app = new Vue({
             return Promise.reject(error);
         });
 
-        this.$on('deletedTag', (payload) => {
-            console.log('deleted tag, show notification');
-            this.confirmation.text = `${payload.name} deleted`;
+        this.$on('tag_action', (payload) => {
+            this.confirmation.text = payload.text;
+            if (payload.undo) {
+                this.confirmation.undoCallback = payload.undo;
+            }
         });
     },
 });

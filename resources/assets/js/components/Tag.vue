@@ -15,27 +15,12 @@
                 <md-icon>{{ starStatus }}</md-icon>
             </md-button>
         </md-list-item>
-
-        <confirmation-bar
-            :text="confirmation.text"
-            :undo-callback="confirmation.undoCallback">
-        </confirmation-bar>
     </div>
 </template>
 
 <script>
 export default {
     props: ['tag'],
-
-    data() {
-        return {
-            confirmation: {
-                visible: false,
-                text: null,
-                undoCallback: null,
-            },
-        };
-    },
 
     methods: {
         openTag() {
@@ -45,12 +30,15 @@ export default {
         star() {
             this.tag.starred = !this.tag.starred;
             axios.patch(`/tags/${this.tag.id}`, {starred: this.tag.starred})
-                 .then(() => this.$emit('input', this.tag));
-            if (!this.tag.starred) {
-                this.confirmation.visible = true;
-                this.confirmation.text = `${this.tag.tag} unstarred`;
-                this.confirmation.undoCallback = this.star;
-            }
+                .then(() => {
+                    this.$emit('input', this.tag);
+                    if (!this.tag.starred) {
+                        this.$router.app.$emit('tag_action', {
+                            text: `${this.tag.tag} unstarred`,
+                            undo: this.star,
+                        });
+                    }
+                });
         },
     },
 
