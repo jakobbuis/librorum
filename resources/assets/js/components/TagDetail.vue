@@ -6,15 +6,17 @@
                     <md-icon>arrow_back</md-icon>
                 </md-button>
             </router-link>
-            <span class="md-title">Librorum</span>
+
+            <span class="md-title">{{ tag.tag }}</span>
+
+            <div class="md-toolbar-section-end">
+                <md-button class="md-icon-button" @click="star">
+                    <md-icon>{{ starStatus }}</md-icon>
+                </md-button>
+            </div>
         </md-app-toolbar>
 
         <md-app-content>
-            <h1>
-                {{ tag.tag }}
-                <i class="material-icons">{{ starStatus }}</i>
-            </h1>
-
             <md-table>
                 <md-table-row>
                     <md-table-head>Notebook</md-table-head>
@@ -58,6 +60,13 @@ export default {
     computed: {
         starStatus() {
             return this.tag.starred ? 'star' : 'star_border';
+        },
+    },
+
+    methods: {
+        star() {
+            this.tag.starred = !this.tag.starred;
+            axios.patch(`/tags/${this.tag.id}`, {starred: this.tag.starred});
         },
     },
 };
