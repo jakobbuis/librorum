@@ -8,6 +8,18 @@ class Notebook extends Model
 {
     protected $fillable = ['slug'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        // Trashing a notebook, trashes all its pages too
+        self::deleting(function($notebook){
+            $notebook->pages->each(function($page){
+                $page->delete();
+            });
+        });
+    }
+
     public function pages()
     {
         return $this->hasMany(Page::class);
