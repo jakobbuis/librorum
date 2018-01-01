@@ -98,6 +98,7 @@ export default {
 }
 .md-list {
     border: 1px solid rgba(#000, .12);
+    padding: 0;
 }
 .md-speed-dial {
     position: fixed;
