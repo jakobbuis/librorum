@@ -37,7 +37,7 @@ const app = new Vue({
             return Promise.reject(error);
         });
 
-        this.$on('tag_action', (payload) => {
+        this.$on('confirmation', (payload) => {
             this.confirmation.text = payload.text;
             this.confirmation.undoCallback = payload.undo ? payload.undo : null;
         });

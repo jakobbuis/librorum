@@ -33,7 +33,7 @@ export default {
                 .then(() => {
                     this.$emit('input', this.tag);
                     if (!this.tag.starred) {
-                        this.$router.app.$emit('tag_action', {
+                        this.$router.app.$emit('confirmation', {
                             text: `${this.tag.tag} unstarred`,
                             undo: this.star,
                         });

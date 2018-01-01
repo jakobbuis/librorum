@@ -25,6 +25,7 @@
                     <md-table-head>Notebook</md-table-head>
                     <md-table-head md-numeric>Pages</md-table-head>
                     <md-table-head>Notes</md-table-head>
+                    <md-table-head>Actions</md-table-head>
                 </md-table-row>
 
                 <md-table-row v-for="page in tag.pages" :key="page.identifier">
@@ -35,6 +36,11 @@
                     </md-table-cell>
                     <md-table-cell md-numeric>{{ page.start_number }}&#8210;{{ page.end_number }}</md-table-cell>
                     <md-table-cell>{{ page.description }}</md-table-cell>
+                    <md-table-cell>
+                        <md-button class="md-icon-button" @click="trashPage(page)">
+                            <md-icon>delete</md-icon>
+                        </md-button>
+                    </md-table-cell>
                 </md-table-row>
             </md-table>
         </md-app-content>
@@ -74,10 +80,23 @@ export default {
 
         trash() {
             axios.delete(`/tags/${this.tag.id}`).then(() => {
-                this.$router.app.$emit('tag_action', {
+                this.$router.app.$emit('confirmation', {
                     text: `${this.tag.tag} deleted`,
                 });
                 this.$router.push('/');
+            });
+        },
+
+        trashPage(page) {
+            axios.delete(`pages/${page.id}`).then(() => {
+                // Remove locally
+                const index = this.tag.pages.indexOf(page);
+                this.tag.pages.splice(index, 1);
+
+                // Emit confirmatiom bar
+                this.$router.app.$emit('confirmation', {
+                    text: `Page ${page.identifier} deleted`,
+                });
             });
         },
     },
