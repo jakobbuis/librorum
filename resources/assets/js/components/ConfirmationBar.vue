@@ -21,9 +21,7 @@ export default {
     watch: {
         text() {
             this.active = true;
-            setTimeout(() => {
-                this.active = false;
-            }, 3000);
+            setTimeout(() => {this.active = false}, 3000);
         },
     },
 

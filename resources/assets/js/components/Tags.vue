@@ -3,6 +3,9 @@
         <md-app>
             <md-app-toolbar class="md-primary">
                 <div class="md-toolbar-section-start">
+                    <md-button class="md-icon-button" @click="menuVisible = true">
+                        <md-icon>menu</md-icon>
+                    </md-button>
                     <span class="md-title">Librorum</span>
                 </div>
 
@@ -29,6 +32,8 @@
             </md-app-content>
         </md-app>
 
+        <main-menu :visible.sync="menuVisible"></main-menu>
+
         <md-speed-dial md-event="click" md-direction="top">
             <md-speed-dial-target class="md-primary">
                 <md-icon class="md-morph-initial">add</md-icon>
@@ -54,11 +59,13 @@
 
 <script>
 import Tag from './Tag';
+import MainMenu from './MainMenu';
 
 export default {
-    components: { Tag },
+    components: { Tag, MainMenu },
     data() {
         return {
+            menuVisible: false, // Show the main navigation menu
             filter: null,
             tags: [],
             searching: false,
@@ -67,9 +74,6 @@ export default {
 
     created() {
         axios.get('/tags').then(response => this.tags = response.data.data);
-    },
-
-    methods: {
     },
 
     computed: {
@@ -98,6 +102,7 @@ export default {
 }
 .md-list {
     border: 1px solid rgba(#000, .12);
+    padding: 0;
 }
 .md-speed-dial {
     position: fixed;

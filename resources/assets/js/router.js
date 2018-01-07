@@ -6,6 +6,7 @@ import TagDetail from './components/TagDetail';
 import AddPage from './components/AddPage';
 import AddNotebook from './components/AddNotebook';
 import AddTag from './components/AddTag';
+import Trash from './components/Trash';
 
 Vue.use(VueRouter);
 
@@ -17,5 +18,6 @@ export default new VueRouter({
         { path: '/add-page', component: AddPage },
         { path: '/add-notebook', component: AddNotebook },
         { path: '/add-tag', component: AddTag },
+        { path: '/trash', component: Trash },
     ],
 });

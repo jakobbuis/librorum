@@ -13,6 +13,9 @@
                 <md-button class="md-icon-button" @click="star">
                     <md-icon>{{ starStatus }}</md-icon>
                 </md-button>
+                <md-button class="md-icon-button" @click="trash">
+                    <md-icon>delete</md-icon>
+                </md-button>
             </div>
         </md-app-toolbar>
 
@@ -22,6 +25,7 @@
                     <md-table-head>Notebook</md-table-head>
                     <md-table-head md-numeric>Pages</md-table-head>
                     <md-table-head>Notes</md-table-head>
+                    <md-table-head>Actions</md-table-head>
                 </md-table-row>
 
                 <md-table-row v-for="page in tag.pages" :key="page.identifier">
@@ -32,6 +36,11 @@
                     </md-table-cell>
                     <md-table-cell md-numeric>{{ page.start_number }}&#8210;{{ page.end_number }}</md-table-cell>
                     <md-table-cell>{{ page.description }}</md-table-cell>
+                    <md-table-cell>
+                        <md-button class="md-icon-button" @click="trashPage(page)">
+                            <md-icon>delete</md-icon>
+                        </md-button>
+                    </md-table-cell>
                 </md-table-row>
             </md-table>
         </md-app-content>
@@ -47,6 +56,7 @@ export default {
             tag: {
                 pages: [],
             },
+            justDeleted: null,
         };
     },
 
@@ -67,6 +77,46 @@ export default {
         star() {
             this.tag.starred = !this.tag.starred;
             axios.patch(`/tags/${this.tag.id}`, {starred: this.tag.starred});
+        },
+
+        trash() {
+            axios.delete(`/tags/${this.tag.id}`).then(() => {
+                this.$router.app.$emit('confirmation', {
+                    text: `${this.tag.tag} deleted`,
+                    undo: () => {
+                        axios.patch(`/trash/${this.tag.id}`, { deleted_at: null }).then(() => {
+                            this.$router.app.$emit('confirmation', {
+                                text: `Tag ${this.tag.tag} restored`,
+                            });
+                            this.$router.push({name: 'tag', params: { id: this.tag.id }});
+                        });
+                    },
+                });
+                this.$router.push('/');
+            });
+        },
+
+        undoTrashPage() {
+            axios.patch(`/trash/${this.justDeleted.id}`, { deleted_at: null }).then(() => {
+                this.tag.pages.push(this.justDeleted);
+                this.$router.app.$emit('confirmation', {
+                    text: `Page ${this.justDeleted.identifier} restored`,
+                });
+            });
+        },
+
+        trashPage(page) {
+            axios.delete(`pages/${page.id}`).then(() => {
+                // Remove locally
+                const index = this.tag.pages.indexOf(page);
+                this.justDeleted = this.tag.pages.splice(index, 1)[0];
+
+                // Emit confirmatiom bar
+                this.$router.app.$emit('confirmation', {
+                    text: `Page ${page.identifier} deleted`,
+                    undo: this.undoTrashPage,
+                });
+            });
         },
     },
 };

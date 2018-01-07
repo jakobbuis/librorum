@@ -18,4 +18,10 @@ class PagesController extends Controller
 
         return response(null, 204);
     }
+
+    public function destroy(Page $page)
+    {
+        $page->delete();
+        return response(null, 204);
+    }
 }
