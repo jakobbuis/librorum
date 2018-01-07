@@ -32,11 +32,13 @@
                     </template>
                 </md-list>
 
-                <p v-if="empty" class="zero">
-                    The trash is empty. When you delete notebooks, tags or pages,
-                    they show up here for safe-keeping before you purge them
-                    forever.
-                </p>
+                <md-empty-state v-if="empty" md-icon="delete_forever" md-label="Trash is empty">
+                    <p class="md-empty-state-description">
+                        If you delete notebooks, tags or pages, they show up here
+                        for safe-keeping. Until you take the trash out, you can
+                        always recover accidentally deleted items.
+                    </p>
+                </md-empty-state>
             </md-app-content>
         </md-app>
 
