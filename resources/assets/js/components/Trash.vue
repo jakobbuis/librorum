@@ -40,13 +40,17 @@
             </md-app-content>
         </md-app>
 
-        <md-dialog-confirm
-            :md-active.sync="clearConfirmVisible"
-            md-title="Empty trash"
-            md-content="<strong>Caution:</strong> This will permanently delete all trashed items. No recovery is possible beyond this point. Are you absolutely sure you want to do this?"
-            md-confirm-text="Yes, delete everything"
-            md-cancel-text="No, I don't"
-            @md-confirm="clearAll" />
+        <md-dialog :md-fullscreen="false" :md-active.sync="clearConfirmVisible">
+            <md-dialog-title>Empty trash</md-dialog-title>
+            <md-dialog-content>
+                <strong>Caution:</strong> This will permanently delete all trashed items. No recovery is possible beyond this point. Are you absolutely sure you want to do this?
+            </md-dialog-content>
+
+            <md-dialog-actions>
+                <md-button @click="clearConfirmVisible = false">No, I don't</md-button>
+                <md-button class="md-raised md-accent" @click="clearAll">Yes, I'm sure. Delete everything</md-button>
+            </md-dialog-actions>
+        </md-dialog>
 
         <main-menu :visible.sync="menuVisible"></main-menu>
     </div>
@@ -96,6 +100,7 @@ export default {
         },
 
         clearAll() {
+            this.clearConfirmVisible = false;
             axios.delete('/trash').then(() => {
                 Vue.set(this, 'items', []);
                 this.$router.app.$emit('confirmation', {
