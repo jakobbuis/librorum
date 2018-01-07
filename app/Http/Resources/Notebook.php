@@ -14,13 +14,14 @@ class Notebook extends Resource
      */
     public function toArray($request)
     {
-        $lastPage = (int) ($this->pages()->orderBy('end_number', 'desc')->first()->end_number ?: 0);
+        $lastPage = $this->pages()->orderBy('end_number', 'desc')->first();
+        $highestEndNumber = (int) ($lastPage ? $lastPage->end_number : 0);
 
         if ($this->page_count === null) {
             $progress = null;
         }
         else {
-            $progress = round($lastPage / $this->page_count * 100);
+            $progress = round($highestEndNumber / $this->page_count * 100);
         }
 
         return [
@@ -29,7 +30,7 @@ class Notebook extends Resource
             'used_pages' => $this->usedPages(),
             'page_count' => $this->page_count,
             'progress' => $progress,
-            'highest_end_number' => $lastPage,
+            'highest_end_number' => $highestEndNumber,
         ];
     }
 }
