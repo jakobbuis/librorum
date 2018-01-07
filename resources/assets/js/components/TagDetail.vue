@@ -44,14 +44,20 @@
                 </md-table-row>
             </md-table>
 
-            <p class="zero" v-if="state === 'gone'">
-                This tag has been deleted. It might still be recoverable through
-                <router-link to="/trash">your trash</router-link>.
-            </p>
+            <md-empty-state v-if="state === 'gone'" md-icon="delete_forever" md-label="Tag deleted">
+                <p class="md-empty-state-description">
+                    This tag has been deleted. It might still be recoverable through
+                    <router-link to="/trash">your trash</router-link>.
+                </p>
+            </md-empty-state>
 
-            <p class="zero" v-if="state === 'missing'">
-                This tag does not exist.
-            </p>
+            <md-empty-state v-if="state === 'missing'" md-icon="delete_forever" md-label="Tag not found">
+                <p class="md-empty-state-description">
+                    This tag does not exist. If there was a tag here in the past,
+                    it has now been trashed <em>and</em> purged, and it is most
+                    definitely unrecoverable.
+                </p>
+            </md-empty-state>
         </md-app-content>
     </md-app>
 </template>
