@@ -21,7 +21,7 @@
             </md-app-toolbar>
 
             <md-app-content>
-                <md-list class="md-triple-line">
+                <md-list class="md-triple-line" v-if="displayedTags.length > 0">
                     <transition-group tag="div" name="tag-complete" :duration="500">
                         <template v-for="(tag, index) in displayedTags">
                             <tag :tag="tag" :key="tag.id" v-model="displayedTags[index]"></tag>
@@ -29,6 +29,11 @@
                         </template>
                     </transition-group>
                 </md-list>
+
+                <md-empty-state
+                    v-if="displayedTags.length === 0"
+                    md-icon="find_in_page"
+                    md-label="No results" />
             </md-app-content>
         </md-app>
 
