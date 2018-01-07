@@ -5,5 +5,4 @@ Route::apiResource('tags', 'TagsController');
 Route::apiResource('pages', 'PagesController', ['only' => ['store', 'destroy']]);
 Route::apiResource('trash', 'TrashController', ['only' => ['index', 'update']]);
 
-// DELETE /trash destroys all trashed items
-Route::delete('trash', 'TrashController@purge');
+Route::delete('trash', 'TrashController@purge'); // destroys all trashed items
