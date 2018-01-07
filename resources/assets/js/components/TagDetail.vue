@@ -83,13 +83,14 @@ export default {
             axios.delete(`/tags/${this.tag.id}`).then(() => {
                 this.$router.app.$emit('confirmation', {
                     text: `${this.tag.tag} deleted`,
-                    undo: (function(id, tag) {
-                        axios.patch(`/trash/${id}`, { deleted_at: null }).then(() => {
+                    undo: () => {
+                        axios.patch(`/trash/${this.tag.id}`, { deleted_at: null }).then(() => {
                             this.$router.app.$emit('confirmation', {
-                                text: `Tag ${tag} restored`,
+                                text: `Tag ${this.tag.tag} restored`,
                             });
+                            this.$router.push({name: 'tag', params: { id: this.tag.id }});
                         });
-                    }).bind(this, this.tag.id, this.tag.tag),
+                    },
                 });
                 this.$router.push('/');
             });
