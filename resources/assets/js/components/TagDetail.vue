@@ -56,6 +56,7 @@ export default {
             tag: {
                 pages: [],
             },
+            justDeleted: null,
         };
     },
 
@@ -87,15 +88,25 @@ export default {
             });
         },
 
+        undoTrashPage() {
+            axios.patch(`/trash/${this.justDeleted.id}`, { deleted_at: null }).then(() => {
+                this.tag.pages.push(this.justDeleted);
+                this.$router.app.$emit('confirmation', {
+                    text: `Page ${this.justDeleted.identifier} restored`,
+                });
+            });
+        },
+
         trashPage(page) {
             axios.delete(`pages/${page.id}`).then(() => {
                 // Remove locally
                 const index = this.tag.pages.indexOf(page);
-                this.tag.pages.splice(index, 1);
+                this.justDeleted = this.tag.pages.splice(index, 1)[0];
 
                 // Emit confirmatiom bar
                 this.$router.app.$emit('confirmation', {
                     text: `Page ${page.identifier} deleted`,
+                    undo: this.undoTrashPage,
                 });
             });
         },
