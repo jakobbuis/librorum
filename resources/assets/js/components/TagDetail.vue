@@ -20,7 +20,7 @@
         </md-app-toolbar>
 
         <md-app-content>
-            <md-table>
+            <md-table v-if="state === 'loaded'">
                 <md-table-row>
                     <md-table-head>Notebook</md-table-head>
                     <md-table-head md-numeric>Pages</md-table-head>
@@ -43,6 +43,15 @@
                     </md-table-cell>
                 </md-table-row>
             </md-table>
+
+            <p class="zero" v-if="state === 'gone'">
+                This tag has been deleted. It might still be recoverable through
+                <router-link to="/trash">your trash</router-link>.
+            </p>
+
+            <p class="zero" v-if="state === 'missing'">
+                This tag does not exist.
+            </p>
         </md-app-content>
     </md-app>
 </template>
@@ -53,6 +62,7 @@ import Vue from 'vue';
 export default {
     data() {
         return {
+            state: 'loading',
             tag: {
                 pages: [],
             },
@@ -63,7 +73,10 @@ export default {
     created() {
         const id = this.$route.params.id;
         axios.get(`/tags/${id}`).then((response) => {
+            this.state = 'loaded';
             Vue.set(this, 'tag', response.data.data);
+        }).catch((error) => {
+            this.state = error.response.status === 410 ? 'gone' : 'missing';
         });
     },
 

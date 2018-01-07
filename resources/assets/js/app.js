@@ -33,7 +33,9 @@ const app = new Vue({
     created() {
         // Use an interceptor to globally handle events
         axios.interceptors.response.use(null, (error) => {
-            this.axiosError = true;
+            if (error.response.status >= 500) {
+                this.axiosError = true;
+            }
             return Promise.reject(error);
         });
 

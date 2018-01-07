@@ -117,11 +117,4 @@ export default {
     border: 1px solid rgba(#000, .12);
     padding: 0;
 }
-.zero {
-    margin: 1em auto;
-    color: #666;
-    text-align: justify;
-    font-style: italic;
-    max-width: 25em;
-}
 </style>
