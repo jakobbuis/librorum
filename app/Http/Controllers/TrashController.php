@@ -15,12 +15,7 @@ class TrashController extends Controller
      */
     public function index()
     {
-        $tags = Tag::onlyTrashed()->get();
-        $pages = Page::onlyTrashed()->get();
-
-        $trash = $tags->union($pages)->sortBy('deleted_at')->values();
-
-        return \App\Http\Resources\TrashItem::collection($trash);
+        return \App\Http\Resources\TrashItem::collection($this->trashedItems());
     }
 
     /**
@@ -39,6 +34,29 @@ class TrashController extends Controller
         }
 
         return response(null, 204);
+    }
+
+    /**
+     * DELETE /trash empties the trash
+     */
+    public function purge()
+    {
+        foreach ($this->trashedItems() as $item) {
+            $item->forceDelete();
+        }
+        return response(null, 204);
+    }
+
+    /**
+     * Find all trashed objects
+     * @return \Illuminate\Support\Collection
+     */
+    private function trashedItems()
+    {
+        $tags = Tag::onlyTrashed()->get();
+        $pages = Page::onlyTrashed()->get();
+
+        return $tags->union($pages)->sortBy('deleted_at')->values();
     }
 
     /**
