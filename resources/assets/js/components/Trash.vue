@@ -18,6 +18,9 @@
                                 <span>{{ item.name }}</span>
                                 <span>{{ item.type }}</span>
                             </div>
+                            <md-button class="md-icon-button md-list-action" @click="restore(item)">
+                                <md-icon>restore_page</md-icon>
+                            </md-button>
                         </md-list-item>
                         <md-divider :key="index" v-if="index !== items.length - 1" />
                     </template>
@@ -54,6 +57,15 @@ export default {
                 return 'description';
             }
         },
+
+        restore(item) {
+            axios.patch(`/trash/${item.id}`, { deleted_at: null }).then(() => {
+                this.items.splice(this.items.indexOf(item), 1);
+                this.$router.app.$emit('confirmation', {
+                    text: `${item.type} ${item.name} restored`,
+                });
+            });
+        }
     },
 };
 </script>
