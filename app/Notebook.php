@@ -29,4 +29,15 @@ class Notebook extends Model
     {
         return $this->hasManyThrough(Tag::class, Page::class);
     }
+
+    /**
+     * Total number of actual pages (not page objects) for this notebook
+     * @return int
+     */
+    public function pageCount()
+    {
+        return $this->pages->reduce(function($memo, $page) {
+            return $memo + $page->end_number - $page->start_number + 1;
+        }, 0);
+    }
 }

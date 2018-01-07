@@ -19,6 +19,7 @@ class Notebook extends Resource
         return [
             'id' => $this->id,
             'slug' => $this->slug,
+            'page_count' => $this->pageCount(),
             'highest_end_number' => (int) ($lastPage ? $lastPage->end_number : 0),
         ];
     }

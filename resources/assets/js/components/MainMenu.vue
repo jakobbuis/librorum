@@ -11,6 +11,13 @@
                 </md-list-item>
             </router-link>
 
+            <router-link to="/notebooks">
+                <md-list-item>
+                    <md-icon>book</md-icon>
+                    <span class="md-list-item-text">Notebooks</span>
+                </md-list-item>
+            </router-link>
+
             <router-link to="/trash">
                 <md-list-item>
                     <md-icon>delete</md-icon>
