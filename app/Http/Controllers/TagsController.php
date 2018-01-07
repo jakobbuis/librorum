@@ -32,14 +32,17 @@ class TagsController extends Controller
         return response(null, 204);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Tag  $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Tag $tag)
+    public function show(string $id)
     {
+        $tag = Tag::withTrashed()->find($id);
+        if ($tag === null) {
+            return response(null, 404);
+        }
+
+        if ($tag->trashed()) {
+            return response(null, 410);
+        }
+
         return \App\Http\Resources\Tag::make($tag);
     }
 
