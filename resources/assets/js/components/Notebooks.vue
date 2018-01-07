@@ -15,12 +15,12 @@
                             <md-list-item :key="notebook.id">
                                 <div class="md-list-item-text">
                                     <span>{{ notebook.slug }}</span>
-                                    <span class="tagline">{{ notebook.page_count }} pages</span>
-                                    <!-- <p class="pages">
-                                        <span v-for="page in tag.pages" class="page" :style="{'background-color': page.color}">
-                                            {{ page.identifier }}
-                                        </span>
-                                    </p> -->
+                                    <small class="subtitle">{{ progressDescription(notebook) }}</small>
+                                    <md-progress-bar
+                                        v-if="notebook.progress"
+                                        md-mode="determinate"
+                                        :md-value="notebook.progress">
+                                    </md-progress-bar>
                                 </div>
                             </md-list-item>
                             <md-divider :key="index" v-if="index !== notebooks.length - 1" />
@@ -71,6 +71,16 @@ export default {
     created() {
         axios.get('/notebooks').then(response => this.notebooks = response.data.data);
     },
+
+    methods: {
+        progressDescription(notebook) {
+            let sentence = `${notebook.used_pages} pages tagged`;
+            if (notebook.page_count) {
+                sentence = sentence.concat(` out of ${notebook.page_count}`);
+            }
+            return sentence;
+        },
+    },
 };
 </script>
 
@@ -95,5 +105,14 @@ export default {
     .md-icon {
         color: white;
     }
+}
+
+.md-progress-bar {
+    margin-top: 0.5em;
+}
+
+.subtitle {
+    font-size: 10px;
+    color: #666;
 }
 </style>

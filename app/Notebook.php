@@ -34,7 +34,7 @@ class Notebook extends Model
      * Total number of actual pages (not page objects) for this notebook
      * @return int
      */
-    public function pageCount()
+    public function usedPages()
     {
         return $this->pages->reduce(function($memo, $page) {
             return $memo + $page->end_number - $page->start_number + 1;
