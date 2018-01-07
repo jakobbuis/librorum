@@ -9,7 +9,19 @@
             </md-app-toolbar>
 
             <md-app-content>
-                <h1>Trash here</h1>
+                <md-list class="md-double-line">
+
+                    <template v-for="(item, index) in items">
+                        <md-list-item :key="item.id">
+                            <md-icon>{{ typeIcon(item) }}</md-icon>
+                            <div class="md-list-item-text">
+                                <span>{{ item.name }}</span>
+                                <span>{{ item.type }}</span>
+                            </div>
+                        </md-list-item>
+                        <md-divider :key="index" v-if="index !== items.length - 1" />
+                    </template>
+                </md-list>
             </md-app-content>
         </md-app>
 
@@ -25,31 +37,30 @@ export default {
     data() {
         return {
             menuVisible: false, // Show the main navigation menu
+            items: [],
         };
+    },
+
+    mounted() {
+        axios.get('/trash').then(response => this.items = response.data.data);
+    },
+
+    methods: {
+        typeIcon(item) {
+            if (item.type === 'tag') {
+                return 'label';
+            }
+            else {
+                return 'description';
+            }
+        },
     },
 };
 </script>
 
-<style lang="scss" scoped>
-.tag-complete-move {
-  transition: transform 0.5s;
-}
+<style scoped lang="scss">
 .md-list {
     border: 1px solid rgba(#000, .12);
     padding: 0;
-}
-.md-speed-dial {
-    position: fixed;
-    right: 16px;
-    bottom: 16px;
-    z-index: 2;
-
-    .md-button {
-        background-color: rgb(150, 150, 150);
-    }
-
-    .md-icon {
-        color: white;
-    }
 }
 </style>
