@@ -32,6 +32,12 @@
 
         <main-menu :visible.sync="menuVisible"></main-menu>
 
+        <router-link to="/add-notebook">
+            <md-button class="md-fab md-primary">
+                <md-icon>add</md-icon>
+            </md-button>
+        </router-link>
+
         <!-- <md-speed-dial md-event="click" md-direction="top">
             <md-speed-dial-target class="md-primary">
                 <md-icon class="md-morph-initial">add</md-icon>
@@ -92,19 +98,11 @@ export default {
     border: 1px solid rgba(#000, .12);
     padding: 0;
 }
-.md-speed-dial {
+.md-fab {
     position: fixed;
     right: 16px;
     bottom: 16px;
     z-index: 2;
-
-    .md-button {
-        background-color: rgb(150, 150, 150);
-    }
-
-    .md-icon {
-        color: white;
-    }
 }
 
 .md-progress-bar {
