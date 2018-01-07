@@ -9,15 +9,14 @@
                     <span class="md-title">Trash</span>
                 </div>
                 <div class="md-toolbar-section-end">
-                    <md-button class="md-icon-button" @click="clearConfirmVisible = true">
+                    <md-button class="md-icon-button" @click="clearConfirmVisible = true" v-if="!empty">
                         <md-icon>delete_sweep</md-icon>
                     </md-button>
                 </div>
             </md-app-toolbar>
 
             <md-app-content>
-                <md-list class="md-double-line">
-
+                <md-list class="md-double-line" v-if="!empty">
                     <template v-for="(item, index) in items">
                         <md-list-item :key="item.id">
                             <md-icon>{{ typeIcon(item) }}</md-icon>
@@ -32,6 +31,12 @@
                         <md-divider :key="index" v-if="index !== items.length - 1" />
                     </template>
                 </md-list>
+
+                <p v-if="empty" class="zero">
+                    The trash is empty. When you delete notebooks, tags or pages,
+                    they show up here for safe-keeping before you purge them
+                    forever.
+                </p>
             </md-app-content>
         </md-app>
 
@@ -63,6 +68,12 @@ export default {
 
     mounted() {
         axios.get('/trash').then(response => this.items = response.data.data);
+    },
+
+    computed: {
+        empty() {
+            return this.items.length === 0;
+        },
     },
 
     methods: {
@@ -100,5 +111,12 @@ export default {
 .md-list {
     border: 1px solid rgba(#000, .12);
     padding: 0;
+}
+.zero {
+    margin: 1em auto;
+    color: #666;
+    text-align: justify;
+    font-style: italic;
+    max-width: 25em;
 }
 </style>
