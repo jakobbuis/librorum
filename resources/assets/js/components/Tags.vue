@@ -14,7 +14,7 @@
                         <label>Search</label>
                         <md-input ref="searchField" v-model="filter"></md-input>
                     </md-field>
-                    <md-button class="md-icon-button" @click="searching = true">
+                    <md-button class="md-icon-button" @click="searching = true" v-if="tags.length > 0">
                         <md-icon>search</md-icon>
                     </md-button>
                 </div>
@@ -31,15 +31,32 @@
                 </md-list>
 
                 <md-empty-state
-                    v-if="displayedTags.length === 0"
+                    v-if="tags.length > 0 && displayedTags.length === 0"
                     md-icon="find_in_page"
                     md-label="No results" />
+
+                <md-empty-state
+                    v-if="tags.length === 0"
+                    md-icon="bookmark_border"
+                    md-label="You have no tags">
+                    <p class="md-empty-state-description">
+                        Tags are like labels you affix to your notebooks. Things like
+                        "<em>meeting</em>", "<em>new concepts</em>" or "<em>Secret Project X</em>". Get started
+                        right now by creating your first tag.
+                    </p>
+                    <router-link to="/add-tag">
+                        <md-button class="md-primary md-raised">
+                            Create your first tag
+                        </md-button>
+                    </router-link>
+                </md-empty-state>
+
             </md-app-content>
         </md-app>
 
         <main-menu :visible.sync="menuVisible"></main-menu>
 
-        <md-speed-dial md-event="click" md-direction="top">
+        <md-speed-dial md-event="click" md-direction="top" v-if="tags.length > 0">
             <md-speed-dial-target class="md-primary">
                 <md-icon class="md-morph-initial">add</md-icon>
                 <md-icon class="md-morph-final">close</md-icon>
