@@ -25,7 +25,7 @@ class NotebooksController extends Controller
      */
     public function store(Request $request)
     {
-        $notebook = new Notebook($request->only('slug'));
+        $notebook = new Notebook($request->only('slug', 'page_count'));
         $notebook->save();
 
         return \App\Http\Resources\Notebook::make($notebook);

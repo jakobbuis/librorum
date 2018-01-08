@@ -30,6 +30,19 @@
                                 </md-field>
                                 <small>Use 2 characters</small>
                             </div>
+
+                            <div class="md-flex md-flex-small-100">
+                                <md-field>
+                                    <label for="page_count">Total number of pages</label>
+                                    <md-input
+                                        type="number"
+                                        id="page_count"
+                                        name="page_count"
+                                        v-model="form.page_count" />
+                                </md-field>
+                                <small>This is optional, but if you fill it in,
+                                we can tell you how many you still have to go!</small>
+                            </div>
                         </div>
                     </md-card-content>
 
@@ -53,6 +66,7 @@ export default {
         return {
             form: {
                 slug: null,
+                page_count: null,
             },
             state: 'forming', // forming -> saving -> saved
         };

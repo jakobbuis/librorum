@@ -6,7 +6,7 @@ use App\Tag;
 
 class Notebook extends Model
 {
-    protected $fillable = ['slug'];
+    protected $fillable = ['slug', 'page_count'];
 
     public static function boot()
     {
