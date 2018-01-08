@@ -41,7 +41,7 @@
                     md-label="You have no tags">
                     <p class="md-empty-state-description">
                         Tags are like labels you affix to your notebooks. Things like
-                        "<em>meeting</em>", "<em>new concepts</em>" or "<em>Secret Project X</em>". Get started
+                        "<em>meeting</em>", "<em>new concept</em>" or "<em>Secret Project X</em>". Get started
                         right now by creating your first tag.
                     </p>
                     <router-link to="/add-tag">
