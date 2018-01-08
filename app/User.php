@@ -28,4 +28,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        // Use v4 UUIDs as primary keys
+        self::creating(function ($model) {
+            $model->id = (string) \Ramsey\Uuid\Uuid::uuid4();
+        });
+    }
 }
