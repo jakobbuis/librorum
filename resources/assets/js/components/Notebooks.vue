@@ -22,6 +22,10 @@
                                         :md-value="notebook.progress">
                                     </md-progress-bar>
                                 </div>
+
+                                <md-button class="md-icon-button md-list-action" @click.stop="trash(notebook)">
+                                    <md-icon>delete</md-icon>
+                                </md-button>
                             </md-list-item>
                             <md-divider :key="index" v-if="index !== notebooks.length - 1" />
                         </template>
@@ -66,6 +70,7 @@ export default {
         return {
             menuVisible: false, // Show the main navigation menu
             notebooks: [],
+            justDeleted: null,
         };
     },
 
@@ -80,6 +85,25 @@ export default {
                 sentence = sentence.concat(` out of ${notebook.page_count}`);
             }
             return sentence;
+        },
+
+        trash(notebook) {
+            axios.delete(`/notebooks/${notebook.id}`).then(() => {
+                this.justDeleted = this.notebooks.splice(this.notebooks.indexOf(notebook), 1)[0];
+                this.$router.app.$emit('confirmation', {
+                    text: `Notebook ${notebook.slug} deleted`,
+                    undo: this.restore,
+                });
+            });
+        },
+
+        restore() {
+            axios.patch(`/trash/${this.justDeleted.id}`, { deleted_at: null }).then(() => {
+                this.notebooks.push(this.justDeleted);
+                this.$router.app.$emit('confirmation', {
+                    text: `Notebook ${this.justDeleted.slug} restored`,
+                });
+            });
         },
     },
 };

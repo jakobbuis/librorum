@@ -30,4 +30,10 @@ class NotebooksController extends Controller
 
         return \App\Http\Resources\Notebook::make($notebook);
     }
+
+    public function destroy(Notebook $notebook)
+    {
+        $notebook->delete();
+        return response(null, 204);
+    }
 }

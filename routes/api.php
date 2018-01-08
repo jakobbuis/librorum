@@ -1,6 +1,6 @@
 <?php
 
-Route::apiResource('notebooks', 'NotebooksController', ['only' => ['index', 'store']]);
+Route::apiResource('notebooks', 'NotebooksController', ['only' => ['index', 'store', 'destroy']]);
 Route::apiResource('tags', 'TagsController');
 Route::apiResource('pages', 'PagesController', ['only' => ['store', 'destroy']]);
 Route::apiResource('trash', 'TrashController', ['only' => ['index', 'update']]);
