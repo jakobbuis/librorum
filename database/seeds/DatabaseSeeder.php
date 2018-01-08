@@ -38,5 +38,17 @@ class DatabaseSeeder extends Seeder
             'email' => $email,
             'password' => bcrypt($password),
         ]);
+
+        // Create the frontend as password-grant client
+        $client = (new \Laravel\Passport\Client)->forceFill([
+            'user_id' => $jakob->id,
+            'name' => 'librorum-frontend',
+            'secret' => str_random(40),
+            'redirect' => env('APP_URL'),
+            'personal_access_client' => false,
+            'password_client' => true,
+            'revoked' => false,
+        ]);
+        $client->save();
     }
 }
