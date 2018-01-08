@@ -52,7 +52,7 @@
 
         <main-menu :visible.sync="menuVisible"></main-menu>
 
-        <router-link to="/add-notebook">
+        <router-link to="/add-notebook" v-if="notebooks.length > 0">
             <md-button class="md-fab md-primary">
                 <md-icon>add</md-icon>
             </md-button>
