@@ -46,9 +46,13 @@
 
             <md-empty-state v-if="state === 'gone'" md-icon="label_outline" md-label="Tag deleted">
                 <p class="md-empty-state-description">
-                    This tag has been deleted. It might still be recoverable through
-                    <router-link to="/trash">your trash</router-link>.
+                    This tag has been deleted, but it is still located in the
+                    <router-link to="/trash">trash</router-link>. You can restore
+                    it, or open the trash to purge it forever.
                 </p>
+                <md-button class="md-raised md-primary" @click="recoverTag">
+                    Recover this tag from trash
+                </md-button>
             </md-empty-state>
 
             <md-empty-state v-if="state === 'missing'" md-icon="label_outline" md-label="Tag not found">
@@ -77,13 +81,7 @@ export default {
     },
 
     created() {
-        const id = this.$route.params.id;
-        axios.get(`/tags/${id}`).then((response) => {
-            this.state = 'loaded';
-            Vue.set(this, 'tag', response.data.data);
-        }).catch((error) => {
-            this.state = error.response.status === 410 ? 'gone' : 'missing';
-        });
+        this.getTagData();
     },
 
     computed: {
@@ -93,6 +91,15 @@ export default {
     },
 
     methods: {
+        getTagData() {
+            axios.get(`/tags/${this.$route.params.id}`).then((response) => {
+                this.state = 'loaded';
+                Vue.set(this, 'tag', response.data.data);
+            }).catch((error) => {
+                this.state = error.response.status === 410 ? 'gone' : 'missing';
+            });
+        },
+
         star() {
             this.tag.starred = !this.tag.starred;
             axios.patch(`/tags/${this.tag.id}`, {starred: this.tag.starred});
@@ -137,6 +144,15 @@ export default {
                 });
             });
         },
+
+        recoverTag() {
+            axios.patch(`/trash/${this.$route.params.id}`, { deleted_at: null }).then(() => {
+                this.getTagData();
+                this.$router.app.$emit('confirmation', {
+                    text: `Tag restored`,
+                });
+            });
+        }
     },
 };
 </script>
