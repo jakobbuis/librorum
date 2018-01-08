@@ -9,7 +9,7 @@
             </md-app-toolbar>
 
             <md-app-content>
-                <md-list class="md-triple-line">
+                <md-list class="md-triple-line" v-if="notebooks.length > 0">
                     <transition-group tag="div" name="notebook-complete" :duration="500">
                         <template v-for="(notebook, index) in notebooks">
                             <md-list-item :key="notebook.id">
@@ -27,6 +27,22 @@
                         </template>
                     </transition-group>
                 </md-list>
+
+                <md-empty-state
+                    v-if="notebooks.length === 0"
+                    md-icon="description"
+                    md-label="No notebooks">
+                    <p class="md-empty-state-description">
+                        You have no notebooks yet. A notebook is any stack of paper
+                        that has a consistent numbering, and is used as a single bundle.
+                        Get started now and create your first notebook!
+                    </p>
+                    <router-link to="/add-notebook">
+                        <md-button class="md-primary md-raised">
+                            Create your first notebook
+                        </md-button>
+                    </router-link>
+                </md-empty-state>
             </md-app-content>
         </md-app>
 
