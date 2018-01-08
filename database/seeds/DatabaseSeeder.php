@@ -26,5 +26,17 @@ class DatabaseSeeder extends Seeder
                 $page->tags()->attach($tags->random(2));
             });
         });
+
+        // Create my personal user
+        $email = env('ADMIN_USER_EMAIL', false);
+        $password = env('ADMIN_USER_PASSWORD', false);
+        if (!$email || !$password) {
+            throw new \Exception('You must set admin credentials in .env before seeding');
+        }
+        $jakob = factory(App\User::class)->create([
+            'name' => 'Jakob Buis',
+            'email' => $email,
+            'password' => bcrypt($password),
+        ]);
     }
 }
