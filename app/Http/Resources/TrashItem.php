@@ -22,6 +22,9 @@ class TrashItem extends Resource
         elseif ($this->resource instanceof \App\Tag) {
             $name = $this->tag;
         }
+        elseif ($this->resource instanceof \App\Notebook) {
+            $name = $this->slug;
+        }
 
         return [
             'id' => $this->id,

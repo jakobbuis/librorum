@@ -55,8 +55,9 @@ class TrashController extends Controller
     {
         $tags = Tag::onlyTrashed()->get();
         $pages = Page::onlyTrashed()->get();
+        $notebooks = Notebook::onlyTrashed()->get();
 
-        return $tags->union($pages)->sortBy('deleted_at')->values();
+        return $tags->union($pages)->union($notebooks)->sortBy('deleted_at')->values();
     }
 
     /**
@@ -74,6 +75,11 @@ class TrashController extends Controller
         $page = Page::withTrashed()->find($id);
         if ($page) {
             return $page;
+        }
+
+        $notebook = Notebook::withTrashed()->find($id);
+        if ($notebook) {
+            return $notebook;
         }
 
         return null;
