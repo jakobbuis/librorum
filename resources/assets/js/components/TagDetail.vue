@@ -20,7 +20,7 @@
         </md-app-toolbar>
 
         <md-app-content>
-            <md-table v-if="state === 'loaded'">
+            <md-table v-if="state === 'loaded' && tag.pages.length > 0">
                 <md-table-row>
                     <md-table-head>Notebook</md-table-head>
                     <md-table-head md-numeric>Pages</md-table-head>
@@ -43,6 +43,21 @@
                     </md-table-cell>
                 </md-table-row>
             </md-table>
+
+            <md-empty-state
+                    v-if="tag.pages.length === 0"
+                    md-icon="bookmark_border"
+                    md-label="Empty tag">
+                    <p class="md-empty-state-description">
+                        No pages are associated with this tag, yet. Once you tag
+                        some new pages, you'll see them show up here.
+                    </p>
+                    <router-link to="/add-page">
+                        <md-button class="md-primary md-raised">
+                            Tag a new page
+                        </md-button>
+                    </router-link>
+                </md-empty-state>
 
             <md-empty-state v-if="state === 'gone'" md-icon="label_outline" md-label="Tag deleted">
                 <p class="md-empty-state-description">
