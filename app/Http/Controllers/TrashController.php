@@ -67,17 +67,17 @@ class TrashController extends Controller
      */
     private function findItem(string $id)
     {
-        $tag = Tag::withTrashed()->find($id);
+        $tag = Tag::onlyTrashed()->find($id);
         if ($tag) {
             return $tag;
         }
 
-        $page = Page::withTrashed()->find($id);
+        $page = Page::onlyTrashed()->find($id);
         if ($page) {
             return $page;
         }
 
-        $notebook = Notebook::withTrashed()->find($id);
+        $notebook = Notebook::onlyTrashed()->find($id);
         if ($notebook) {
             return $notebook;
         }
