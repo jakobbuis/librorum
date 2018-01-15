@@ -11,22 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $tags = factory(\App\Tag::class, 5)->create();
-
-        // Create 5 notebooks, each with 3 pages
-        // each linked to 2 randomly selected tags
-        $notebooks = factory(\App\Notebook::class, 5)->create();
-        $notebooks->each(function($notebook) use ($tags) {
-
-            $pages = factory(\App\Page::class, 3)->create([
-                'notebook_id' => $notebook->id,
-            ]);
-
-            $pages->each(function($page) use ($tags) {
-                $page->tags()->attach($tags->random(2));
-            });
-        });
-
         // Create my personal user
         $email = env('ADMIN_USER_EMAIL', false);
         $password = env('ADMIN_USER_PASSWORD', false);
@@ -50,5 +34,22 @@ class DatabaseSeeder extends Seeder
             'revoked' => false,
         ]);
         $client->save();
+
+        // Create the content
+        $tags = factory(\App\Tag::class, 5)->create(['user_id' => $jakob->id]);
+
+        // Create 5 notebooks, each with 3 pages
+        // each linked to 2 randomly selected tags
+        $notebooks = factory(\App\Notebook::class, 5)->create(['user_id' => $jakob->id]);
+        $notebooks->each(function($notebook) use ($tags) {
+
+            $pages = factory(\App\Page::class, 3)->create([
+                'notebook_id' => $notebook->id,
+            ]);
+
+            $pages->each(function($page) use ($tags) {
+                $page->tags()->attach($tags->random(2));
+            });
+        });
     }
 }
