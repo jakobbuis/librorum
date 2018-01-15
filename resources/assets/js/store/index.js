@@ -1,9 +1,18 @@
 import Vue from 'vue';
 import VueX from 'vuex';
+import VuexPersistence from 'vuex-persist';
 
 Vue.use(VueX);
 
+// Configure localStorage-backing for state
+const storage = new VuexPersistence({
+    storage: window.localStorage,
+    key: 'librorum',
+});
+
 export default new VueX.Store({
+    plugins: [storage.plugin],
+
     state: {
         oauth: {
             accessToken: null,
