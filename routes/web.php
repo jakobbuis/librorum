@@ -2,6 +2,7 @@
 
 // Routes that deeplink to the app
 Route::view('/', 'app');
+Route::view('/login', 'app');
 Route::view('/tag/{id}', 'app');
 Route::view('/add-page', 'app');
 Route::view('/add-notebook', 'app');

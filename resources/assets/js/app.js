@@ -25,7 +25,10 @@ const app = new Vue({
     router,
     store,
     data: {
-        axiosError: false,
+        errors: {
+            server: false,
+            mustLogin: false,
+        },
         confirmation: {
             text: null,
             undoCallback: null,
@@ -37,8 +40,11 @@ const app = new Vue({
         axios.interceptors.response.use(function(config) {
             return config;
         }, (error) => {
+            if (error.response.status == 401) {
+                this.errors.mustLogin = true;
+            }
             if (error.response.status >= 500) {
-                this.axiosError = true;
+                this.errors.server = true;
             }
             return Promise.reject(error);
         });
@@ -58,5 +64,12 @@ const app = new Vue({
             this.confirmation.text = payload.text;
             this.confirmation.undoCallback = payload.undo ? payload.undo : null;
         });
+    },
+
+    methods: {
+        toLoginPage() {
+            this.errors.mustLogin = false;
+            this.$router.push('/login');
+        }
     },
 });

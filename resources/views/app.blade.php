@@ -25,10 +25,21 @@
 
         {{-- Axios global error handling --}}
         <md-dialog-alert
-          :md-active.sync="axiosError"
+          :md-active.sync="errors.server"
           md-content="A critical error occured while executing your request. Please reload and try again."
-          md-confirm-text="Okay" />
+          md-confirm-text="Okay"></md-dialog-alert>
 
+        {{-- Popup to force logging-in again when request fails 401 --}}
+        <md-dialog :md-fullscreen="false" :md-active.sync="errors.mustLogin">
+            <md-dialog-title>Login required</md-dialog-title>
+            <md-dialog-content>
+                You are not authorized for this page or action. Please login (again).
+            </md-dialog-content>
+
+            <md-dialog-actions>
+                <md-button class="md-raised md-primary" @click="toLoginPage">To Login page</md-button>
+            </md-dialog-actions>
+        </md-dialog>
     </div>
 
     @include('configuration')
