@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 abstract class Model extends \Illuminate\Database\Eloquent\Model
@@ -23,5 +25,16 @@ abstract class Model extends \Illuminate\Database\Eloquent\Model
         self::creating(function ($model) {
             $model->id = (string) \Ramsey\Uuid\Uuid::uuid4();
         });
+    }
+
+    /**
+     * Query scope to limit to a specific user (usually the current user)
+     * @param  Builder $query
+     * @param  User    $user
+     * @return Builder
+     */
+    public function scopeOwnedBy(Builder $query, User $user)
+    {
+        return $query->where('user_id', $user->id);
     }
 }

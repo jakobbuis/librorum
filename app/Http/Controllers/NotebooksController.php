@@ -15,7 +15,7 @@ class NotebooksController extends Controller
      */
     public function index()
     {
-        return \App\Http\Resources\Notebook::collection(Notebook::all());
+        return \App\Http\Resources\Notebook::collection(Notebook::ownedBy(Auth::user())->get());
     }
 
     /**
@@ -35,6 +35,10 @@ class NotebooksController extends Controller
 
     public function destroy(Notebook $notebook)
     {
+        if (!$notebook->owner->is(Auth::user())) {
+            abort(403);
+        }
+
         $notebook->delete();
         return response(null, 204);
     }

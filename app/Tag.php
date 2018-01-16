@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Notebook;
+use App\User;
 use Illuminate\Database\Eloquent\Builder;
 
 class Tag extends Model
@@ -28,5 +29,10 @@ class Tag extends Model
         return $this->pages->reduce(function($memo, $page) {
             return $memo + $page->end_number - $page->start_number + 1;
         }, 0);
+    }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

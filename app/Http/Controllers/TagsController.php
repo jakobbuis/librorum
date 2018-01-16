@@ -15,7 +15,7 @@ class TagsController extends Controller
      */
     public function index()
     {
-        $tags = Tag::with('pages')->naturalOrder()->get();
+        $tags = Tag::ownedBy(Auth::user())->with('pages')->naturalOrder()->get();
         return \App\Http\Resources\PartialTag::collection($tags);
     }
 
@@ -45,6 +45,10 @@ class TagsController extends Controller
             return response(null, 410);
         }
 
+        if (!$tag->owner->is(Auth::user())) {
+            return response(null, 403);
+        }
+
         return \App\Http\Resources\Tag::make($tag);
     }
 
@@ -57,6 +61,10 @@ class TagsController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
+        if (!$tag->owner->is(Auth::user())) {
+            abort(403);
+        }
+
         $tag->update($request->only('starred'));
         return response(null, 204);
     }
@@ -69,6 +77,10 @@ class TagsController extends Controller
      */
     public function destroy(Tag $tag)
     {
+        if (!$tag->owner->is(Auth::user())) {
+            abort(403);
+        }
+
         $tag->delete();
         return response(null, 204);
     }

@@ -7,6 +7,7 @@ use App\Notebook;
 use App\Page;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TrashController extends Controller
 {
@@ -26,6 +27,10 @@ class TrashController extends Controller
         $item = $this->findItem($id);
         if (!$item) {
             abort(404);
+        }
+
+        if (!$item->owner->is(Auth::user())) {
+            abort(403);
         }
 
         if ($request->has('deleted_at')) {
@@ -53,9 +58,9 @@ class TrashController extends Controller
      */
     private function trashedItems()
     {
-        $tags = Tag::onlyTrashed()->get();
-        $pages = Page::onlyTrashed()->get();
-        $notebooks = Notebook::onlyTrashed()->get();
+        $tags = Tag::ownedBy(Auth::user())->onlyTrashed()->get();
+        $pages = Page::ownedBy(Auth::user())->onlyTrashed()->get();
+        $notebooks = Notebook::ownedBy(Auth::user())->onlyTrashed()->get();
 
         return $tags->union($pages)->union($notebooks)->sortBy('deleted_at')->values();
     }
@@ -67,17 +72,17 @@ class TrashController extends Controller
      */
     private function findItem(string $id)
     {
-        $tag = Tag::onlyTrashed()->find($id);
+        $tag = Tag::ownedBy(Auth::user())->onlyTrashed()->find($id);
         if ($tag) {
             return $tag;
         }
 
-        $page = Page::onlyTrashed()->find($id);
+        $page = Page::ownedBy(Auth::user())->onlyTrashed()->find($id);
         if ($page) {
             return $page;
         }
 
-        $notebook = Notebook::onlyTrashed()->find($id);
+        $notebook = Notebook::ownedBy(Auth::user())->onlyTrashed()->find($id);
         if ($notebook) {
             return $notebook;
         }

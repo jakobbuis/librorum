@@ -40,4 +40,9 @@ class Notebook extends Model
             return $memo + $page->end_number - $page->start_number + 1;
         }, 0);
     }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

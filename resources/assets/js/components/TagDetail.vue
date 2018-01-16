@@ -45,7 +45,7 @@
             </md-table>
 
             <md-empty-state
-                    v-if="tag.pages.length === 0"
+                    v-if="tag.pages.length === 0 && state === 'loaded'"
                     md-icon="bookmark_border"
                     md-label="Empty tag">
                     <p class="md-empty-state-description">
@@ -75,6 +75,12 @@
                     This tag does not exist. If there was a tag here in the past,
                     it has now been trashed <em>and</em> purged, and it is most
                     definitely unrecoverable.
+                </p>
+            </md-empty-state>
+
+            <md-empty-state v-if="state === 'unauthorized'" md-icon="label_outline" md-label="Not yours">
+                <p class="md-empty-state-description">
+                    This tag is not yours.
                 </p>
             </md-empty-state>
         </md-app-content>
@@ -111,7 +117,16 @@ export default {
                 this.state = 'loaded';
                 Vue.set(this, 'tag', response.data.data);
             }).catch((error) => {
-                this.state = error.response.status === 410 ? 'gone' : 'missing';
+                const result = error.response.status;
+                if (result === 410) {
+                    this.state = 'gone';
+                }
+                else if (result === 404) {
+                    this.state = 'missing';
+                }
+                else if (result === 403) {
+                    this.state = 'unauthorized';
+                }
             });
         },
 

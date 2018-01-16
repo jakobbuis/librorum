@@ -43,4 +43,9 @@ class Page extends Model
     {
         return str_pad((string) $value, 2, '0', STR_PAD_LEFT);
     }
+
+    public function owner()
+    {
+        return $this->notebook->owner();
+    }
 }
