@@ -23,6 +23,10 @@ export default new VueX.Store({
         login(state, token) {
             state.oauth.accessToken = token;
         },
+
+        logout(state) {
+            state.oauth.accessToken = null;
+        },
     },
 
 
