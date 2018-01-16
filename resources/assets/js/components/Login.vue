@@ -48,6 +48,13 @@ export default {
         };
     },
 
+    created() {
+        if (this.$store.getters.loggedIn) {
+            this.$router.app.$emit('confirmation', { text: "You're already signed in, no need to do that again" });
+            this.$router.push('/');
+        }
+    },
+
     methods: {
         login() {
             axios.post('/login', this.form).then((response) => {
