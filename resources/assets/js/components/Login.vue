@@ -55,7 +55,7 @@ export default {
                 this.$router.app.$emit('confirmation', { text: 'Logged in!'});
                 this.$router.push('/');
             }).catch(() => {
-                alert('Credentials incorrect');
+                this.$router.app.$emit('confirmation', { text: 'Invalid credentials' });
             });
         }
     },
