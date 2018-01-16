@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TagsController extends Controller
 {
@@ -27,6 +28,7 @@ class TagsController extends Controller
     public function store(Request $request)
     {
         $tag = new Tag($request->only('tag'));
+        $tag->user_id = Auth::user()->id;
         $tag->save();
 
         return response(null, 204);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Notebook;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NotebooksController extends Controller
 {
@@ -26,6 +27,7 @@ class NotebooksController extends Controller
     public function store(Request $request)
     {
         $notebook = new Notebook($request->only('slug', 'page_count'));
+        $notebook->user_id = Auth::user()->id;
         $notebook->save();
 
         return \App\Http\Resources\Notebook::make($notebook);
