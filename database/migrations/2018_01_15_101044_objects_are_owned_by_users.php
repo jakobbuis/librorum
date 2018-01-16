@@ -37,7 +37,7 @@ class ObjectsAreOwnedByUsers extends Migration
         });
 
         Schema::table('tags', function (Blueprint $table){
-            $table->dropForeign('notebooks_user_id_foreign');
+            $table->dropForeign('tags_user_id_foreign');
             $table->dropColumn('user_id');
         });
     }
