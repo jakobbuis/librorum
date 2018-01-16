@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -22,6 +23,22 @@ class LoginController extends Controller
         $email = $request->get('email');
         $password = $request->get('password');
 
+        try {
+            return $this->generateToken($email, $password);
+        }
+        catch (ClientException $e) {
+            return response(null, 401);
+        }
+    }
+
+    /**
+     * Construct a full token request based on the email and password
+     * @param  string $email
+     * @param  string $password
+     * @return object
+     */
+    private function generateToken(string $email, string $password)
+    {
         $client = \Laravel\Passport\Client::where('name', 'librorum-frontend')->first();
         if (!$client) {
             abort(500);
