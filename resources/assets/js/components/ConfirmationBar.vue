@@ -14,14 +14,22 @@ export default {
 
     data() {
         return {
+            timer: null,
             active: false,
         };
     },
 
     watch: {
         text() {
+            if (this.timer) {
+                // Changing the text resets the timeout
+                clearTimeout(this.timer);
+            }
             this.active = true;
-            setTimeout(() => {this.active = false}, 3000);
+            this.timer = setTimeout(() => {
+                this.active = false;
+                this.timer = null;
+            }, 3000);
         },
     },
 
