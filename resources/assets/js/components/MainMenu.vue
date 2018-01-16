@@ -4,26 +4,20 @@
         @update:mdActive="activeChanged">
 
         <md-list>
-            <router-link to="/">
-                <md-list-item>
-                    <md-icon>label</md-icon>
-                    <span class="md-list-item-text">Tags</span>
-                </md-list-item>
-            </router-link>
+            <md-list-item @click="() => this.$router.push('/')">
+                <md-icon>label</md-icon>
+                <span class="md-list-item-text">Tags</span>
+            </md-list-item>
 
-            <router-link to="/notebooks">
-                <md-list-item>
-                    <md-icon>book</md-icon>
-                    <span class="md-list-item-text">Notebooks</span>
-                </md-list-item>
-            </router-link>
+            <md-list-item @click="() => this.$router.push('/notebooks')">
+                <md-icon>book</md-icon>
+                <span class="md-list-item-text">Notebooks</span>
+            </md-list-item>
 
-            <router-link to="/trash">
-                <md-list-item>
-                    <md-icon>delete</md-icon>
-                    <span class="md-list-item-text">Trash</span>
-                </md-list-item>
-            </router-link>
+            <md-list-item @click="() => this.$router.push('/trash')">
+                <md-icon>delete</md-icon>
+                <span class="md-list-item-text">Trash</span>
+            </md-list-item>
 
             <md-divider></md-divider>
 
@@ -32,7 +26,7 @@
                 <span class="md-list-item-text">Logout</span>
             </md-list-item>
         </md-list>
-      </md-drawer>
+    </md-drawer>
 </template>
 
 <script>
