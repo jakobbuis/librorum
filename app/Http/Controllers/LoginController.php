@@ -37,7 +37,7 @@ class LoginController extends Controller
      * @param  string $password
      * @return object
      */
-    private function generateToken(string $email, string $password)
+    private function generateToken($email, $password)
     {
         $client = \Laravel\Passport\Client::where('name', 'librorum-frontend')->first();
         if (!$client) {
