@@ -40,7 +40,8 @@ const app = new Vue({
         axios.interceptors.response.use(function(config) {
             return config;
         }, (error) => {
-            if (error.response.status == 401) {
+            const isLoginRequest = error.request.responseURL.indexOf('/api/login') !== -1;
+            if (error.response.status == 401 && !isLoginRequest) {
                 this.errors.mustLogin = true;
             }
             if (error.response.status >= 500) {
