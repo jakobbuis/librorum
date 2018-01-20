@@ -41,7 +41,7 @@ class LoginController extends Controller
     {
         $client = \Laravel\Passport\Client::where('name', 'librorum-frontend')->first();
         if (!$client) {
-            abort(500);
+            abort(500, 'Missing OAuth2 Client for librorum-frontend');
         }
 
         $response = $this->guzzle->post(env('APP_URL') . '/oauth/token', [
