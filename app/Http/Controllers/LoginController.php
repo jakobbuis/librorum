@@ -16,8 +16,8 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        if (!$request->has('email', 'password')) {
-            abort(400);
+        if (!$request->has(['email', 'password'])) {
+            abort(400, 'Missing parameters, must send "email" and "password"');
         }
 
         $email = $request->get('email');
