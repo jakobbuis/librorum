@@ -5,6 +5,9 @@ import router from './router';
 import ConfirmationBar from './components/ConfirmationBar.vue';
 import store from './store';
 
+// Register the serviceworker
+import './serviceworker/registration.js';
+
 // Initialize material UI
 import 'vue-material/dist/vue-material.min.css';
 import 'vue-material/dist/theme/default.css';
