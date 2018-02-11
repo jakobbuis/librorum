@@ -186,7 +186,7 @@ export default {
 
         pageRange(page) {
             if (page.end_number) {
-                return `${page.start_number}#8210;${page.end_number}`;
+                return `${page.start_number}-${page.end_number}`;
             }
             return `${page.start_number}`;
         },
