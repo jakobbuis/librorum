@@ -19,8 +19,6 @@
                 <span class="md-list-item-text">Trash</span>
             </md-list-item>
 
-            <md-divider></md-divider>
-
             <md-list-item @click="logout">
                 <md-icon>power_settings_new</md-icon>
                 <span class="md-list-item-text">Logout</span>
