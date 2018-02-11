@@ -34,7 +34,7 @@
                             {{ page.notebook }}
                         </md-chip>
                     </md-table-cell>
-                    <md-table-cell md-numeric>{{ page.start_number }}&#8210;{{ page.end_number }}</md-table-cell>
+                    <md-table-cell md-numeric>{{ pageRange(page) }}</md-table-cell>
                     <md-table-cell>{{ page.description }}</md-table-cell>
                     <md-table-cell>
                         <md-button class="md-icon-button" @click="trashPage(page)">
@@ -182,7 +182,14 @@ export default {
                     text: `Tag restored`,
                 });
             });
-        }
+        },
+
+        pageRange(page) {
+            if (page.end_number) {
+                return `${page.start_number}#8210;${page.end_number}`;
+            }
+            return `${page.start_number}`;
+        },
     },
 };
 </script>

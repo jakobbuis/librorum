@@ -27,7 +27,9 @@ class Tag extends Model
     public function pageCount()
     {
         return $this->pages->reduce(function($memo, $page) {
-            return $memo + $page->end_number - $page->start_number + 1;
+            $start = $page->start_number;
+            $end = $page->end_number ? $page->end_number : $page->start_number;
+            return $memo + ($end - $start + 1);
         }, 0);
     }
 

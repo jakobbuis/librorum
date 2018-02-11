@@ -19,11 +19,16 @@ class Page extends Model
 
     /**
      * Show a persistent, human-readable representation of this page
-     * @return string e.g. ID1-30, NB16-57, XH2-
+     * @return string e.g. ID1-30, NB16-57, XH23
      */
     public function identifier()
     {
-        return implode('', [$this->notebook->slug, ' ', $this->start_number, '-', $this->end_number]);
+        if ($this->end_number) {
+            return "{$this->notebook->slug}{$this->start_number}-{$this->end_number}";
+        }
+        else {
+            return "{$this->notebook->slug}{$this->start_number}";
+        }
     }
 
     /**
