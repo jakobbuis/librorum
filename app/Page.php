@@ -7,6 +7,17 @@ class Page extends Model
     protected $fillable = ['description', 'start_number', 'end_number'];
     protected $with = ['notebook'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function($page){
+            if ($page->start_number === $page->end_number) {
+                $page->end_number = null;
+            }
+        });
+    }
+
     public function notebook()
     {
         return $this->belongsTo(Notebook::class);
