@@ -50,7 +50,7 @@ class Notebook extends Model
 
     public function lastUsedPageNumber()
     {
-        return max($this->pages->max('start_number'), $this->pages->max('end_number'));
+        return max((int)$this->pages->max('start_number'), (int)$this->pages->max('end_number'));
     }
 
     public function percentageUsed()
