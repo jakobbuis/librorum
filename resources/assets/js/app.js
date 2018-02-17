@@ -30,6 +30,7 @@ const app = new Vue({
             mustLogin: false,
         },
         confirmation: {
+            active: false,
             text: null,
             undoCallback: null,
         },
@@ -62,6 +63,7 @@ const app = new Vue({
         });
 
         this.$on('confirmation', (payload) => {
+            this.confirmation.active = true;
             this.confirmation.text = payload.text;
             this.confirmation.undoCallback = payload.undo ? payload.undo : null;
         });

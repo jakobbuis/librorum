@@ -17,6 +17,7 @@
     <div id="app">
         {{-- Generic confirmation bar  --}}
         <confirmation-bar
+            :active.sync="confirmation.active"
             :text="confirmation.text"
             :undo-callback="confirmation.undoCallback">
         </confirmation-bar>

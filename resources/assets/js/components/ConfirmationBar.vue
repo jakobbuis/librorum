@@ -10,12 +10,11 @@
 
 <script>
 export default {
-    props: ['text', 'undoCallback'],
+    props: ['active', 'text', 'undoCallback'],
 
     data() {
         return {
             timer: null,
-            active: false,
         };
     },
 
@@ -25,9 +24,8 @@ export default {
                 // Changing the text resets the timeout
                 clearTimeout(this.timer);
             }
-            this.active = true;
             this.timer = setTimeout(() => {
-                this.active = false;
+                this.$emit('update:active', false);
                 this.timer = null;
             }, 3000);
         },
