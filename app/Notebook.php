@@ -47,4 +47,18 @@ class Notebook extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function lastUsedPageNumber()
+    {
+        return max($this->pages->max('start_number'), $this->pages->max('end_number'));
+    }
+
+    public function percentageUsed()
+    {
+        if ($this->page_count === null) {
+            return null;
+        }
+
+        return round($this->lastUsedPageNumber() / $this->page_count * 100);
+    }
 }
