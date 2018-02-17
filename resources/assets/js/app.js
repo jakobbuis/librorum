@@ -5,9 +5,6 @@ import router from './router';
 import ConfirmationBar from './components/ConfirmationBar.vue';
 import store from './store';
 
-// Initialize material UI
-import 'vue-material/dist/vue-material.min.css';
-import 'vue-material/dist/theme/default.css';
 Vue.use(VueMaterial);
 
 // Configure axios
