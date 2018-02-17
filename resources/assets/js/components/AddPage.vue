@@ -85,8 +85,6 @@
                         <md-button type="submit" class="md-primary" :disabled="state === 'saving'">Add page</md-button>
                     </md-card-actions>
                 </md-card>
-
-                <md-snackbar :md-active="state === 'saved'">Page saved!</md-snackbar>
             </form>
         </md-app-content>
     </md-app>
@@ -109,7 +107,7 @@ export default {
                 tagInputString: '', // temporary placeholder for the text in the autocomplete field, not submitted
                 description: null,
             },
-            state: 'forming', // forming -> saving -> saved
+            state: 'forming', // forming -> saving
         };
     },
 
@@ -157,7 +155,16 @@ export default {
         savePage() {
             this.state = 'saving';
             axios.post('/pages', this.form).then((response) => {
-                this.state = 'saved';
+                // Display a popup
+                this.$router.app.$emit('confirmation', { text: 'Page saved' });
+                // Set the next page number as default value
+                this.form.start_number = 1 + Math.max(this.form.start_number, this.form.end_number);
+                // Reset all other fields, except the notebook
+                this.state = 'forming';
+                this.form.tags = [];
+                this.form.tagInputString = '';
+                this.form.description = null;
+                this.form.end_number = null;
             });
         },
     },
