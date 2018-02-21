@@ -145,6 +145,6 @@ export default {
 }
 
 .search {
-    max-width: 240px;
+    max-width: 220px;
 }
 </style>
