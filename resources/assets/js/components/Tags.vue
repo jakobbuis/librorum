@@ -9,15 +9,15 @@
                     <span class="md-title">Librorum</span>
                 </div>
 
-                <div class="md-toolbar-section-end">
-                    <md-field md-clearable v-if="searching">
-                        <label>Search</label>
-                        <md-input ref="searchField" v-model="filter"></md-input>
-                    </md-field>
-                    <md-button class="md-icon-button" @click="searching = true" v-if="tags.length > 0">
-                        <md-icon>search</md-icon>
-                    </md-button>
-                </div>
+                <md-autocomplete
+                    class="search"
+                    :md-options="tagNames"
+                    md-layout="box"
+                    :value="filter"
+                    :md-open-on-focus="false"
+                    @md-changed="(q) => this.filter = q">
+                    <label>Search tags...</label>
+                </md-autocomplete>
             </md-app-toolbar>
 
             <md-app-content>
@@ -90,7 +90,6 @@ export default {
             menuVisible: false, // Show the main navigation menu
             filter: null,
             tags: [],
-            searching: false,
         };
     },
 
@@ -113,6 +112,10 @@ export default {
                 const starred = b.starred - a.starred;
                 return starred === 0 ? a.tag.localeCompare(b.tag) : starred;
             });
+        },
+
+        tagNames() {
+            return this.tags.map(tag => tag.tag);
         },
     },
 };
@@ -139,5 +142,9 @@ export default {
     .md-icon {
         color: white;
     }
+}
+
+.search {
+    max-width: 240px;
 }
 </style>
