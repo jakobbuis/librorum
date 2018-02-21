@@ -114,7 +114,7 @@ export default {
                     undo: () => {
                         axios.patch(`/trash/${this.notebook.id}`, { deleted_at: null }).then(() => {
                             this.$router.app.$emit('confirmation', {
-                                text: `Tag ${this.notebook.slug} restored`,
+                                text: `Notebook ${this.notebook.slug} restored`,
                             });
                             this.$router.push({name: 'notebook', params: { id: this.notebook.id }});
                         });
