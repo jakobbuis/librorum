@@ -20,29 +20,11 @@
         </md-app-toolbar>
 
         <md-app-content>
-            <md-table v-if="state === 'loaded' && tag.pages.length > 0">
-                <md-table-row>
-                    <md-table-head>Notebook</md-table-head>
-                    <md-table-head md-numeric>Pages</md-table-head>
-                    <md-table-head>Notes</md-table-head>
-                    <md-table-head>Actions</md-table-head>
-                </md-table-row>
-
-                <md-table-row v-for="page in tag.pages" :key="page.identifier">
-                    <md-table-cell>
-                        <md-chip :style="{'background-color': page.color}">
-                            {{ page.notebook }}
-                        </md-chip>
-                    </md-table-cell>
-                    <md-table-cell md-numeric>{{ pageRange(page) }}</md-table-cell>
-                    <md-table-cell>{{ page.description }}</md-table-cell>
-                    <md-table-cell>
-                        <md-button class="md-icon-button" @click="trashPage(page)">
-                            <md-icon>delete</md-icon>
-                        </md-button>
-                    </md-table-cell>
-                </md-table-row>
-            </md-table>
+             <page-table
+                :pages="tag.pages"
+                v-if="state === 'loaded' && tag.pages.length > 0"
+                @trashed="(page) => this.tag.pages.splice(this.tag.pages.indexOf(page), 1)"
+                @restored="(page) => this.tag.pages.push(page)" />
 
             <md-empty-state
                     v-if="tag.pages.length === 0 && state === 'loaded'"
@@ -89,8 +71,11 @@
 
 <script>
 import Vue from 'vue';
+import PageTable from './PageTable';
 
 export default {
+    components: { PageTable },
+
     data() {
         return {
             state: 'loading',
@@ -152,29 +137,6 @@ export default {
             });
         },
 
-        undoTrashPage() {
-            axios.patch(`/trash/${this.justDeleted.id}`, { deleted_at: null }).then(() => {
-                this.tag.pages.push(this.justDeleted);
-                this.$router.app.$emit('confirmation', {
-                    text: `Page ${this.justDeleted.identifier} restored`,
-                });
-            });
-        },
-
-        trashPage(page) {
-            axios.delete(`pages/${page.id}`).then(() => {
-                // Remove locally
-                const index = this.tag.pages.indexOf(page);
-                this.justDeleted = this.tag.pages.splice(index, 1)[0];
-
-                // Emit confirmatiom bar
-                this.$router.app.$emit('confirmation', {
-                    text: `Page ${page.identifier} deleted`,
-                    undo: this.undoTrashPage,
-                });
-            });
-        },
-
         recoverTag() {
             axios.patch(`/trash/${this.$route.params.id}`, { deleted_at: null }).then(() => {
                 this.getTagData();
@@ -182,13 +144,6 @@ export default {
                     text: `Tag restored`,
                 });
             });
-        },
-
-        pageRange(page) {
-            if (page.end_number) {
-                return `${page.start_number}-${page.end_number}`;
-            }
-            return `${page.start_number}`;
         },
     },
 };
