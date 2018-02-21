@@ -15,7 +15,25 @@ class NotebooksController extends Controller
      */
     public function index()
     {
-        return \App\Http\Resources\Notebook::collection(Notebook::ownedBy(Auth::user())->get());
+        return \App\Http\Resources\PartialNotebook::collection(Notebook::ownedBy(Auth::user())->get());
+    }
+
+    public function show(string $id)
+    {
+        $notebook = Notebook::withTrashed()->find($id);
+        if ($notebook === null) {
+            return response(null, 404);
+        }
+
+        if ($notebook->trashed()) {
+            return response(null, 410);
+        }
+
+        if (!$notebook->owner->is(Auth::user())) {
+            return response(null, 403);
+        }
+
+        return \App\Http\Resources\Notebook::make($notebook);
     }
 
     /**

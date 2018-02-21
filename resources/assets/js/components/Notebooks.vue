@@ -12,7 +12,7 @@
                 <md-list class="md-triple-line" v-if="notebooks.length > 0">
                     <transition-group tag="div" name="notebook-complete" :duration="500">
                         <template v-for="(notebook, index) in notebooks">
-                            <md-list-item :key="notebook.id">
+                            <md-list-item :key="notebook.id" @click.stop="read(notebook)">
                                 <div class="md-list-item-text">
                                     <span>{{ notebook.slug }}</span>
                                     <small class="subtitle">{{ progressDescription(notebook) }}</small>
@@ -85,6 +85,10 @@ export default {
                 sentence = sentence.concat(` out of ${notebook.page_count}`);
             }
             return sentence;
+        },
+
+        read(notebook) {
+            this.$router.push(`/notebooks/${notebook.id}`);
         },
 
         trash(notebook) {

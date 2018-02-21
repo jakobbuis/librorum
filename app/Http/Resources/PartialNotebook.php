@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class Notebook extends Resource
+class PartialNotebook extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -21,7 +21,6 @@ class Notebook extends Resource
             'page_count' => $this->page_count,
             'progress' => $this->percentageUsed(),
             'highest_end_number' => $this->lastUsedPageNumber(),
-            'pages' => Page::collection($this->pages),
         ];
     }
 }
