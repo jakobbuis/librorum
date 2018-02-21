@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\User;
+use Illuminate\Database\Eloquent\Builder;
+
 class Page extends Model
 {
     protected $fillable = ['description', 'start_number', 'end_number'];
@@ -67,5 +70,17 @@ class Page extends Model
     public function owner()
     {
         return $this->notebook->owner();
+    }
+
+    /**
+     * Query scope to limit to a specific user (usually the current user).
+     * @param  Builder $query
+     * @param  User    $user
+     * @return Builder
+     */
+    public function scopeOwnedBy(Builder $query, User $user)
+    {
+        return $query->join('notebooks', 'pages.notebook_id', '=', 'notebooks.id')
+                     ->where('notebooks.user_id', $user->id);
     }
 }
