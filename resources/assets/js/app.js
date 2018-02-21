@@ -40,6 +40,8 @@ const app = new Vue({
         }, (error) => {
             const isLoginRequest = error.request.responseURL.indexOf('/api/login') !== -1;
             if (error.response.status == 401 && !isLoginRequest) {
+                // Purge the local session
+                this.$store.commit('logout');
                 this.errors.mustLogin = true;
             }
             if (error.response.status >= 500) {
